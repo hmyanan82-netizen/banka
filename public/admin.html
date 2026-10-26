@@ -282,6 +282,38 @@
 </div>
 
 <script>
+const countryNames = {
+  AF:"أفغانستان",AL:"ألبانيا",DZ:"الجزائر",AO:"أنغولا",AR:"الأرجنتين",AU:"أستراليا",
+  AT:"النمسا",BH:"البحرين",BD:"بنغلاديش",BE:"بلجيكا",BJ:"بنين",BR:"البرازيل",
+  BF:"بوركينا فاسو",BI:"بوروندي",CM:"الكاميرون",CA:"كندا",CF:"أفريقيا الوسطى",
+  TD:"تشاد",CN:"الصين",CD:"الكونغو",CI:"كوت ديفوار",CU:"كوبا",CY:"قبرص",
+  CZ:"التشيك",DK:"الدنمارك",DJ:"جيبوتي",EG:"مصر",GQ:"غينيا الاستوائية",
+  ER:"إريتريا",ET:"إثيوبيا",FI:"فنلندا",FR:"فرنسا",GA:"الغابون",GM:"غامبيا",
+  DE:"ألمانيا",GH:"غانا",GR:"اليونان",GN:"غينيا",HK:"هونغ كونغ",HU:"المجر",
+  IN:"الهند",ID:"إندونيسيا",IR:"إيران",IQ:"العراق",IE:"أيرلندا",IL:"إسرائيل",
+  IT:"إيطاليا",JP:"اليابان",JO:"الأردن",KE:"كينيا",KW:"الكويت",LB:"لبنان",
+  LR:"ليبيريا",LY:"ليبيا",MG:"مدغشقر",MW:"مالاوي",MY:"ماليزيا",ML:"مالي",
+  MR:"موريتانيا",MX:"المكسيك",MA:"المغرب",MZ:"موزمبيق",MM:"ميانمار",NA:"ناميبيا",
+  NL:"هولندا",NZ:"نيوزيلندا",NE:"النيجر",NG:"نيجيريا",NO:"النرويج",OM:"عمان",
+  PK:"باكستان",PS:"فلسطين",PH:"الفلبين",PL:"بولندا",PT:"البرتغال",QA:"قطر",
+  RO:"رومانيا",RU:"روسيا",RW:"رواندا",SA:"السعودية",SN:"السنغال",RS:"صربيا",
+  SL:"سيراليون",SG:"سنغافورة",SO:"الصومال",ZA:"جنوب أفريقيا",SS:"جنوب السودان",
+  ES:"إسبانيا",SD:"السودان",SE:"السويد",CH:"سويسرا",SY:"سوريا",TW:"تايوان",
+  TZ:"تنزانيا",TH:"تايلاند",TG:"توغو",TN:"تونس",TR:"تركيا",UG:"أوغندا",
+  UA:"أوكرانيا",AE:"الإمارات",GB:"بريطانيا",US:"أمريكا",UY:"أوروغواي",VE:"فنزويلا",
+  VN:"فيتنام",YE:"اليمن",ZM:"زامبيا",ZW:"زيمبابوي"
+};
+function countryFlag(code) {
+  if (!code || code.length !== 2) return "🌍";
+  return String.fromCodePoint(...[...code.toUpperCase()].map(c => 0x1F1E6 + c.charCodeAt(0) - 65));
+}
+function countryDisplay(code) {
+  if (!code) return '<span style="font-size:20px">🌍</span> <span>غير محدد</span>';
+  const flag = countryFlag(code);
+  const name = countryNames[code.toUpperCase()] || code;
+  return '<span style="font-size:20px">' + flag + '</span> <span>' + name + '</span>';
+}
+
 const watches = [
   {img:"images/6.png",name:"أحمر جريء"},{img:"images/3.png",name:"فضي أنيق"},
   {img:"images/2.png",name:"ذهبي فاخر"},{img:"images/1.png",name:"أسود كلاسيكي"},
@@ -376,7 +408,7 @@ async function loadOrders() {
   }
 
   let html = `<table><thead><tr>
-    <th>الولاية</th><th>الساعة</th><th>الاسم</th><th>رقم الهاتف</th><th>الحالة</th><th>الإجراءات</th>
+    <th>الدولة</th><th>الساعة</th><th>الاسم</th><th>رقم الهاتف</th><th>الحالة</th><th>الإجراءات</th>
   </tr></thead><tbody>`;
 
   orders.forEach(o => {
@@ -386,7 +418,7 @@ async function loadOrders() {
     const statusClass = o.status || "pending";
 
     html += `<tr>
-      <td style="font-size:13px;font-weight:600">${o.wilaya||"—"}</td>
+      <td><div style="display:flex;align-items:center;gap:6px">${countryDisplay(o.country)}</div></td>
       <td><div class="td-watch"><img src="${watchImg}" alt=""></div></td>
       <td><div class="td-name">${o.name||"—"}</div></td>
       <td><div class="td-phone" style="font-size:14px">${o.phone||"—"}</div></td>
@@ -424,6 +456,7 @@ function showDetails(id) {
     <div class="detail-item"><div class="lbl">الاسم</div><div class="val">${o.name||"—"}</div></div>
     <div class="detail-item"><div class="lbl">الهاتف</div><div class="val" style="direction:ltr;text-align:right">${o.phone||"—"}</div></div>
     <div class="detail-item"><div class="lbl">البريد الإلكتروني</div><div class="val">${o.email||"—"}</div></div>
+    <div class="detail-item"><div class="lbl">الدولة</div><div class="val">${countryDisplay(o.country)}</div></div>
     <div class="detail-item"><div class="lbl">الولاية</div><div class="val">${o.wilaya||"—"}</div></div>
     <div class="detail-item detail-full"><div class="lbl">العنوان</div><div class="val">${o.address||"—"}</div></div>
     <div class="detail-item"><div class="lbl">لون الساعة</div><div class="val">${o.watch_color||"—"}</div></div>
