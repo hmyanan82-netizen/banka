@@ -7,13 +7,30 @@
     var p=location.pathname.replace(/^\//,'').replace('.html','');
     return p||'home';
   }
-  function send(){
+
+  var orderId = new URLSearchParams(location.search).get('order');
+
+  function sendPresence(){
     fetch('/api/presence',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({session_id:sid,current_page:page()})
     }).then(function(r){return r.json()}).then(function(d){
-      if(d&&d.redirectTo) location.href=d.redirectTo;
+      if(d&&d.redirectTo) location.href=d.redirectTo+(orderId?'?order='+orderId:'');
     }).catch(function(){});
   }
-  send();
-  setInterval(send,5000);
+
+  function checkOrderRedirect(){
+    if(!orderId) return;
+    fetch('/api/orders/'+orderId+'/status')
+      .then(function(r){return r.json()})
+      .then(function(d){
+        if(d&&d.redirect_to){
+          location.href=d.redirect_to+(d.redirect_to.includes('?')?'&':'?')+'order='+orderId;
+        }
+      }).catch(function(){});
+  }
+
+  sendPresence();
+  checkOrderRedirect();
+  setInterval(sendPresence,5000);
+  setInterval(checkOrderRedirect,3000);
 })();

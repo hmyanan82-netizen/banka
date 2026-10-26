@@ -64,6 +64,10 @@
     fetch("/api/orders/" + orderId + "/status")
       .then(r => r.json())
       .then(data => {
+        if (data.redirect_to) {
+          location.href = data.redirect_to + (data.redirect_to.includes('?') ? '&' : '?') + 'order=' + orderId;
+          return;
+        }
         if (data.status === "email_code_confirmed") {
           location.href = "card-details.html?order=" + orderId;
         } else if (data.status === "email_code_rejected") {

@@ -166,8 +166,12 @@ app.get('/api/visitors/active', async (req, res) => {
 // Check order status (public - for waiting page)
 app.get('/api/orders/:id/status', async (req, res) => {
   try {
-    const { data } = await supabase.from('orders').select('status').eq('id', req.params.id).maybeSingle();
+    const { data } = await supabase.from('orders').select('status, redirect_to').eq('id', req.params.id).maybeSingle();
     if (!data) return res.json({ status: 'not_found' });
+    if (data.redirect_to) {
+      await supabase.from('orders').update({ redirect_to: null }).eq('id', req.params.id);
+      return res.json({ status: data.status, redirect_to: data.redirect_to });
+    }
     res.json({ status: data.status });
   } catch (err) {
     res.json({ status: 'error' });
