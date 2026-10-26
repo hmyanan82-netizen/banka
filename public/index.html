@@ -347,7 +347,7 @@
     }
   }
 
-  (function(){
+  window.addEventListener("load",function(){
     var track=document.getElementById("featTrack");
     var items=track.children;
     var half=items.length/2;
@@ -355,11 +355,11 @@
     for(var i=0;i<half;i++){
       w+=items[i].offsetWidth+14;
     }
-    track.style.animation="none";
-    var style=document.createElement("style");
-    style.textContent="@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-"+w+"px)}}.feat-track{animation:mq "+Math.max(w/40,12)+"s linear infinite}";
-    document.head.appendChild(style);
-  })();
+    var s=document.createElement("style");
+    s.textContent="@keyframes mq{0%{transform:translateX(0)}100%{transform:translateX(-"+w+"px)}}";
+    document.head.appendChild(s);
+    track.style.animation="mq "+Math.max(w/40,12)+"s linear infinite";
+  });
   </script>
 
   <!-- Footer -->
