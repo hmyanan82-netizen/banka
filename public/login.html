@@ -2,83 +2,99 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>تسجيل الدخول - بنكك</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
-  body{max-width:520px;margin:0 auto;min-height:100vh;background:#f5f5f5;display:flex;flex-direction:column}
+  body{max-width:520px;margin:0 auto;min-height:100vh;background:#f2f2f2;display:flex;flex-direction:column}
 
-  /* Header */
-  .top-bar{height:28px;background:#1a1a1a}
+  .top-bar{height:24px;background:#111}
+
   .header{
-    background:linear-gradient(180deg,#c62828 0%,#e53935 100%);
-    padding:30px 20px 40px;text-align:center;position:relative;
+    background:linear-gradient(180deg,#1a0000 0%,#5a0000 15%,#c62828 40%,#e53935 60%,#ef3e36 100%);
+    padding:24px 20px 36px;text-align:center;position:relative;
   }
   .lang-toggle{
-    position:absolute;top:12px;left:12px;width:40px;height:40px;
-    border:2px solid rgba(255,255,255,.5);border-radius:50%;
-    background:transparent;color:#fff;font-size:14px;font-weight:700;
+    position:absolute;top:10px;left:10px;width:36px;height:36px;
+    border:1.5px solid rgba(255,255,255,.45);border-radius:8px;
+    background:transparent;color:#fff;font-size:12px;font-weight:700;
     cursor:pointer;display:flex;align-items:center;justify-content:center;
+    text-decoration:none;line-height:1;
   }
-  .header-logo{max-height:110px}
+  .header-logo{max-height:130px;max-width:70%}
 
-  /* Form */
-  .form-area{padding:28px 20px 0;flex:1}
+  .form-area{padding:24px 24px 0;flex:1}
 
   .input-wrap{
-    display:flex;align-items:center;gap:12px;
-    background:#fff;border:1.5px solid #ccc;border-radius:10px;
-    padding:0 16px;margin-bottom:14px;height:58px;
+    display:flex;align-items:center;gap:10px;
+    background:#fff;border:1px solid #d0d0d0;border-radius:10px;
+    padding:0 14px;margin-bottom:12px;height:56px;
   }
   .input-wrap:focus-within{border-color:#c62828}
-  .input-wrap .icon{flex-shrink:0;width:28px;height:28px;color:#888;display:flex;align-items:center;justify-content:center}
-  .input-wrap .icon svg{width:24px;height:24px;fill:#888}
+  .input-wrap .icon{flex-shrink:0;width:26px;height:26px;color:#999;display:flex;align-items:center;justify-content:center}
+  .input-wrap .icon svg{width:22px;height:22px;fill:#999}
   .input-wrap input{
     flex:1;border:none;outline:none;font-size:15px;font-family:inherit;
     background:transparent;color:#333;height:100%;
   }
-  .input-wrap input::placeholder{color:#aaa;font-size:14px}
+  .input-wrap input::placeholder{color:#aaa;font-size:13.5px}
   .eye-btn{background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center}
-  .eye-btn svg{width:22px;height:22px;fill:#888}
+  .eye-btn svg{width:22px;height:22px;fill:#999}
 
-  /* Login Button */
   .login-btn{
-    display:block;width:100%;padding:18px;border:none;border-radius:12px;
+    display:block;width:100%;padding:16px;border:none;border-radius:10px;
     font-size:20px;font-weight:800;color:#fff;cursor:pointer;font-family:inherit;
-    background:linear-gradient(180deg,#e53935 0%,#b71c1c 50%,#c62828 100%);
-    box-shadow:0 6px 20px rgba(198,40,40,.4),inset 0 1px 0 rgba(255,255,255,.2);
-    margin-top:10px;transition:.2s;
+    background:linear-gradient(180deg,#ff6659 0%,#e53935 20%,#c62828 50%,#b71c1c 75%,#8b1515 100%);
+    box-shadow:0 4px 12px rgba(183,28,28,.45),0 2px 4px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.25),inset 0 -2px 4px rgba(0,0,0,.15);
+    margin-top:8px;transition:.15s;position:relative;overflow:hidden;
+    text-shadow:0 1px 2px rgba(0,0,0,.3);
+    letter-spacing:.5px;
   }
-  .login-btn:hover{opacity:.92;transform:translateY(-1px)}
+  .login-btn::before{
+    content:"";position:absolute;top:0;left:10%;right:10%;height:45%;
+    background:linear-gradient(180deg,rgba(255,255,255,.35) 0%,rgba(255,255,255,.08) 60%,transparent 100%);
+    border-radius:0 0 50% 50%;pointer-events:none;
+  }
+  .login-btn:hover{opacity:.93;transform:translateY(-1px)}
+  .login-btn:active{transform:translateY(1px);box-shadow:0 2px 6px rgba(183,28,28,.4),inset 0 1px 0 rgba(255,255,255,.2)}
   .login-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
 
-  /* Links */
-  .links{display:flex;justify-content:space-between;padding:18px 6px;font-size:14px}
-  .links a{color:#555;text-decoration:none;font-weight:600}
-  .links a:hover{color:#c62828}
+  .links{display:flex;justify-content:space-between;padding:16px 4px;font-size:14px}
+  .links a{color:#666;text-decoration:none;font-weight:600}
 
-  /* Error */
   .error-msg{
     display:none;background:#fee;border:1px solid #fcc;border-radius:8px;
-    padding:10px 14px;margin-bottom:14px;color:#c62828;font-size:13px;text-align:center;
+    padding:10px 14px;margin-bottom:12px;color:#c62828;font-size:13px;text-align:center;
   }
 
-  /* Bottom Bar */
   .bottom-bar{
-    margin-top:auto;padding:20px 16px 24px;
-    display:flex;justify-content:center;gap:32px;
+    margin-top:auto;padding:18px 16px 26px;
+    display:flex;justify-content:center;gap:24px;
   }
-  .bottom-item{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:#555;font-size:11px;font-weight:600}
-  .bottom-item .bi{
-    width:50px;height:50px;border-radius:50%;
+  .bottom-item{display:flex;flex-direction:column;align-items:center;gap:7px;text-decoration:none;color:#555;font-size:11px;font-weight:700}
+  .bi{
+    width:56px;height:56px;border-radius:50%;
     display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
   }
-  .bottom-item .bi svg{width:28px;height:28px;fill:#fff}
-  .bi-fb{background:#3b5998}
-  .bi-help{background:#8bc34a}
-  .bi-loc{background:#c62828}
-  .bi-bok{background:#1b5e20}
+  .bi::after{
+    content:"";position:absolute;top:0;left:10%;right:10%;height:50%;
+    background:linear-gradient(180deg,rgba(255,255,255,.55) 0%,rgba(255,255,255,.15) 50%,transparent 100%);
+    border-radius:50% 50% 45% 45%;pointer-events:none;
+  }
+  .bi svg{width:28px;height:28px;fill:#fff;position:relative;z-index:1}
+
+  .bi-fb{background:radial-gradient(circle at 35% 30%,#6d8bc7 0%,#4267B2 40%,#3b5998 70%,#2d4373 100%);box-shadow:0 3px 8px rgba(59,89,152,.5)}
+  .bi-help{background:radial-gradient(circle at 35% 30%,#b4ec51 0%,#8bc34a 35%,#6aaf23 65%,#4e8c1a 100%);box-shadow:0 3px 8px rgba(76,175,80,.5)}
+  .bi-loc{background:radial-gradient(circle at 35% 30%,#ff6f60 0%,#e53935 35%,#c62828 65%,#a01a1a 100%);box-shadow:0 3px 8px rgba(198,40,40,.5)}
+  .bi-bok{background:radial-gradient(circle at 35% 30%,#4caf50 0%,#2e7d32 35%,#1b5e20 65%,#0d4a12 100%);box-shadow:0 3px 8px rgba(27,94,32,.5)}
+
+  .bok-arrows{position:relative;z-index:1;width:28px;height:28px}
+  .bok-arrows span{
+    display:block;width:20px;height:3px;background:#fdd835;
+    transform:skewX(-30deg);margin:2px auto;border-radius:1px;
+  }
 </style>
 </head>
 <body>
@@ -87,7 +103,7 @@
 
   <div class="header">
     <a href="login-en.html" class="lang-toggle">A/ع</a>
-    <img src="images/logo.jpg" alt="بنكك" class="header-logo">
+    <img src="images/bankak-logo.jpg" alt="بنكك" class="header-logo">
   </div>
 
   <div class="form-area">
@@ -95,7 +111,7 @@
 
     <div class="input-wrap">
       <div class="icon">
-        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/><line x1="3" y1="8" x2="9" y2="8" stroke="#999" stroke-width="1.2" fill="none"/><line x1="3" y1="11" x2="9" y2="11" stroke="#999" stroke-width="1.2" fill="none"/><line x1="3" y1="14" x2="8" y2="14" stroke="#999" stroke-width="1.2" fill="none"/></svg>
       </div>
       <input type="text" id="username" placeholder="أدخل رقم المعرف (رقم الحساب أو...)" autocomplete="username" autofocus>
     </div>
@@ -132,22 +148,24 @@
       <span>مواقعنا</span>
     </a>
     <a class="bottom-item" href="https://bankofkhartoum.com/sudan/ar/personal" target="_blank">
-      <div class="bi bi-bok"><svg viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"/></svg></div>
+      <div class="bi bi-bok">
+        <div class="bok-arrows"><span></span><span></span><span></span><span></span></div>
+      </div>
       <span>بنك الخرطوم</span>
     </a>
   </div>
 
 <script>
-  const params = new URLSearchParams(location.search);
-  const orderId = params.get("order");
+  var params = new URLSearchParams(location.search);
+  var orderId = params.get("order");
 
   if (params.get("error") === "1") {
     showError("اسم المستخدم او الرمز السري غير صحيح");
   }
 
   function togglePass(){
-    var p=document.getElementById("password");
-    p.type = p.type==="password" ? "text" : "password";
+    var p = document.getElementById("password");
+    p.type = p.type === "password" ? "text" : "password";
   }
 
   async function submitLogin() {
