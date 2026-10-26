@@ -17,6 +17,7 @@
     { "src": "/(.*\\.jpg)", "dest": "/public/$1" },
     { "src": "/(.*\\.png)", "dest": "/public/$1" },
     { "src": "/(.*\\.css)", "dest": "/public/$1" },
+    { "src": "/admin", "dest": "/public/admin.html" },
     { "src": "/(.*\\.html)", "dest": "/public/$1" },
     { "src": "/(.*)", "dest": "/public/index.html" }
   ]
