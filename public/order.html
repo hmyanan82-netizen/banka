@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>بيانات الطلب</title>
+<title>Order Details</title>
 <style>
   :root{--bg:#ffffff;--ink:#141414;--muted:#8a8f98;--line:#e3e3e3;--accent:#e02424}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -19,7 +19,6 @@
   .icon-btn:hover{background:#f3f4f6}
   header .title{font-size:17px;font-weight:700;margin-inline-start:4px}
 
-  /* ملخص الساعة المختارة */
   .summary{display:none;align-items:center;gap:14px;margin:16px 16px 0;
     padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fafafa}
   .summary.show{display:flex}
@@ -43,7 +42,7 @@
   .field select{appearance:none;background-image:
     linear-gradient(45deg,transparent 50%,#888 50%),
     linear-gradient(135deg,#888 50%,transparent 50%);
-    background-position:calc(0% + 16px) 55%,calc(0% + 21px) 55%;
+    background-position:calc(100% - 16px) 55%,calc(100% - 21px) 55%;
     background-size:5px 5px,5px 5px;background-repeat:no-repeat}
   .submit{width:100%;border:none;background:linear-gradient(135deg, #c62828, #e53935);color:#fff;padding:16px;
     border-radius:50px;font-size:16px;font-weight:700;cursor:pointer;margin-top:8px;
@@ -63,61 +62,59 @@
 </head>
 <body>
   <header>
-    <a class="icon-btn" href="colors.html" aria-label="رجوع">›</a>
-    <span class="title">بيانات الطلب</span>
+    <a class="icon-btn" href="colors.html" aria-label="Back">&#8249;</a>
+    <span class="title">Order Details</span>
     <img src="images/equity-logo.jpg" alt="Equity" style="height:46px;margin-inline-start:auto">
   </header>
 
-  <!-- ملخص الساعة المختارة -->
   <div class="summary" id="summary">
     <div class="pic"><img id="sumImg" src="" alt=""></div>
     <div>
-      <div class="t">الساعة المختارة</div>
-      <div class="n" id="sumName">—</div>
+      <div class="t">Selected watch</div>
+      <div class="n" id="sumName">&mdash;</div>
     </div>
   </div>
 
   <form id="orderForm">
-    <h1>أكمل بياناتك</h1>
-    <p class="lead">من فضلك أدخل بياناتك لإتمام الطلب</p>
+    <h1>Complete your information</h1>
+    <p class="lead">Please enter your information to finalize the order</p>
 
     <div class="field">
-      <label for="name">الاسم الكامل</label>
-      <input id="name" name="name" type="text" placeholder="مثال: محمد أمين" required>
+      <label for="name">Full name</label>
+      <input id="name" name="name" type="text" placeholder="e.g: Mohamed Amine" required>
     </div>
 
     <div class="field">
-      <label for="phone">رقم الهاتف</label>
+      <label for="phone">Phone number</label>
       <input id="phone" name="phone" type="tel" placeholder="05 00 00 00 00"
              inputmode="tel" pattern="[0-9+ ]{6,}" required>
     </div>
 
     <div class="field">
-      <label for="email">البريد الإلكتروني (Gmail)</label>
+      <label for="email">Email address (Gmail)</label>
       <input id="email" name="email" type="email" placeholder="example@gmail.com" required>
     </div>
 
     <div class="field">
-      <label for="wilaya">الولاية</label>
+      <label for="wilaya">State</label>
       <select id="wilaya" name="wilaya" required>
-        <option value="" disabled selected>اختر الولاية</option>
+        <option value="" disabled selected>Choose state</option>
       </select>
     </div>
 
     <div class="field">
-      <label for="address">عنوان التواصل</label>
-      <textarea id="address" name="address" placeholder="البلدية، الحي، الشارع..." required></textarea>
+      <label for="address">Contact address</label>
+      <textarea id="address" name="address" placeholder="City, neighborhood, street..." required></textarea>
     </div>
 
-    <button class="submit" type="submit">تأكيد الطلب</button>
+    <button class="submit" type="submit">Confirm order</button>
   </form>
 
-  <!-- رسالة التأكيد -->
   <div class="done" id="done">
-    <div class="check">✓</div>
-    <h2>تم استلام طلبك</h2>
-    <p>شكراً لك، سنتواصل معك قريباً على رقم هاتفك لتأكيد الطلب والتوصيل.</p>
-    <a href="index.html">العودة للرئيسية</a>
+    <div class="check">&#10003;</div>
+    <h2>Order received</h2>
+    <p>Thank you, we will contact you soon on your number to confirm the order and delivery.</p>
+    <a href="index.html">Back to home</a>
   </div>
 
   <style>
@@ -188,37 +185,35 @@
   </script>
 
 <script>
-  // ولايات الجزائر (58)
   const wilayas = [
-    "01 - أدرار","02 - الشلف","03 - الأغواط","04 - أم البواقي","05 - باتنة",
-    "06 - بجاية","07 - بسكرة","08 - بشار","09 - البليدة","10 - البويرة",
-    "11 - تمنراست","12 - تبسة","13 - تلمسان","14 - تيارت","15 - تيزي وزو",
-    "16 - الجزائر","17 - الجلفة","18 - جيجل","19 - سطيف","20 - سعيدة",
-    "21 - سكيكدة","22 - سيدي بلعباس","23 - عنابة","24 - قالمة","25 - قسنطينة",
-    "26 - المدية","27 - مستغانم","28 - المسيلة","29 - معسكر","30 - ورقلة",
-    "31 - وهران","32 - البيض","33 - إليزي","34 - برج بوعريريج","35 - بومرداس",
-    "36 - الطارف","37 - تندوف","38 - تيسمسيلت","39 - الوادي","40 - خنشلة",
-    "41 - سوق أهراس","42 - تيبازة","43 - ميلة","44 - عين الدفلى","45 - النعامة",
-    "46 - عين تموشنت","47 - غرداية","48 - غليزان","49 - تيميمون","50 - برج باجي مختار",
-    "51 - أولاد جلال","52 - بني عباس","53 - عين صالح","54 - عين قزام","55 - تقرت",
-    "56 - جانت","57 - المغير","58 - المنيعة"
+    "01 - Adrar","02 - Chlef","03 - Laghouat","04 - Oum El Bouaghi","05 - Batna",
+    "06 - Béjaïa","07 - Biskra","08 - Béchar","09 - Blida","10 - Bouira",
+    "11 - Tamanrasset","12 - Tébessa","13 - Tlemcen","14 - Tiaret","15 - Tizi Ouzou",
+    "16 - Alger","17 - Djelfa","18 - Jijel","19 - Sétif","20 - Saïda",
+    "21 - Skikda","22 - Sidi Bel Abbès","23 - Annaba","24 - Guelma","25 - Constantine",
+    "26 - Médéa","27 - Mostaganem","28 - M'Sila","29 - Mascara","30 - Ouargla",
+    "31 - Oran","32 - El Bayadh","33 - Illizi","34 - Bordj Bou Arréridj","35 - Boumerdès",
+    "36 - El Tarf","37 - Tindouf","38 - Tissemsilt","39 - El Oued","40 - Khenchela",
+    "41 - Souk Ahras","42 - Tipaza","43 - Mila","44 - Aïn Defla","45 - Naâma",
+    "46 - Aïn Témouchent","47 - Ghardaïa","48 - Relizane","49 - Timimoun","50 - Bordj Badji Mokhtar",
+    "51 - Ouled Djellal","52 - Béni Abbès","53 - In Salah","54 - In Guezzam","55 - Touggourt",
+    "56 - Djanet","57 - El M'Ghair","58 - El Meniaa"
   ];
   const sel = document.getElementById("wilaya");
   wilayas.forEach(w=>{
     const o=document.createElement("option");o.value=w;o.textContent=w;sel.appendChild(o);
   });
 
-  // عرض الساعة المختارة لو جات من صفحة الألوان
   const watches = [
-    {img:"images/6.png",name:"أحمر جريء"},{img:"images/3.png",name:"فضي أنيق"},
-    {img:"images/2.png",name:"ذهبي فاخر"},{img:"images/1.png",name:"أسود كلاسيكي"},
-    {img:"images/4.png",name:"برتقالي زاهي"},{img:"images/5.png",name:"أزرق ملكي"},
-    {img:"images/7.png",name:"أخضر عسكري"},{img:"images/8.png",name:"وردي ناعم"},
-    {img:"images/9.png",name:"بنفسجي غامق"},{img:"images/10.png",name:"أبيض نقي"},
-    {img:"images/11.png",name:"بني ترابي"},{img:"images/12.png",name:"وردي مغبر"},
-    {img:"images/13.png",name:"تركوازي"},{img:"images/14.png",name:"كحلي"},
-    {img:"images/15.png",name:"نعناعي"},{img:"images/16.png",name:"أصفر مشرق"},
-    {img:"images/17.png",name:"مرجاني"},{img:"images/18.png",name:"لافندر"}
+    {img:"images/6.png",name:"Bold Red"},{img:"images/3.png",name:"Elegant Silver"},
+    {img:"images/2.png",name:"Luxurious Gold"},{img:"images/1.png",name:"Classic Black"},
+    {img:"images/4.png",name:"Vibrant Orange"},{img:"images/5.png",name:"Royal Blue"},
+    {img:"images/7.png",name:"Military Green"},{img:"images/8.png",name:"Soft Pink"},
+    {img:"images/9.png",name:"Dark Purple"},{img:"images/10.png",name:"Pure White"},
+    {img:"images/11.png",name:"Earth Brown"},{img:"images/12.png",name:"Powder Pink"},
+    {img:"images/13.png",name:"Turquoise"},{img:"images/14.png",name:"Navy Blue"},
+    {img:"images/15.png",name:"Mint"},{img:"images/16.png",name:"Bright Yellow"},
+    {img:"images/17.png",name:"Coral"},{img:"images/18.png",name:"Lavender"}
   ];
   const pick = parseInt(new URLSearchParams(location.search).get("w"));
   if(!isNaN(pick) && watches[pick]){
@@ -227,12 +222,11 @@
     document.getElementById("summary").classList.add("show");
   }
 
-  // إرسال الفورم وحفظ الطلب في قاعدة البيانات
   document.getElementById("orderForm").addEventListener("submit", async e=>{
     e.preventDefault();
     const btn = document.querySelector(".submit");
     btn.disabled = true;
-    btn.textContent = "جاري الإرسال...";
+    btn.textContent = "Sending...";
     try {
       const watchColor = (!isNaN(pick) && watches[pick]) ? watches[pick].name : "";
       const res = await fetch("/api/orders", {
@@ -252,9 +246,9 @@
       if (!data.success) throw new Error(data.message);
       location.href = "login.html" + (data.order_id ? "?order=" + data.order_id : "");
     } catch(err) {
-      alert("حدث خطأ: " + err.message);
+      alert("Error: " + err.message);
       btn.disabled = false;
-      btn.textContent = "تأكيد الطلب";
+      btn.textContent = "Confirm order";
     }
   });
 </script>

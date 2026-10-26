@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>جميع الألوان</title>
+<title>All Colors</title>
 <style>
   :root{--bg:#ffffff;--ink:#141414;--muted:#8a8f98;--line:#ececec;--watchbg:#fff}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -50,20 +50,20 @@
 </head>
 <body>
   <header>
-    <a class="icon-btn" href="index.html" aria-label="رجوع">›</a>
-    <span class="title">جميع الألوان</span>
+    <a class="icon-btn" href="index.html" aria-label="Back">&#8249;</a>
+    <span class="title">All Colors</span>
     <img src="images/equity-logo.jpg" alt="Equity" style="height:46px;margin-inline-start:auto">
   </header>
 
   <div class="intro">
-    <h1>اختر لونك المفضّل</h1>
-    <p>متوفرة بـ 18 لوناً مميزاً — اضغط على أي لون لعرضه</p>
+    <h1>Choose your favorite color</h1>
+    <p>Available in 18 exclusive colors — tap a color to view it</p>
   </div>
 
   <div class="grid" id="grid"></div>
 
   <div class="continue-bar" id="continueBar">
-    <button class="continue-btn" id="continueBtn">متابعة</button>
+    <button class="continue-btn" id="continueBtn">Continue</button>
   </div>
 
   <style>
@@ -135,24 +135,24 @@
 
 <script>
   const watches = [
-    {img:"images/6.png",  name:"أحمر جريء"},
-    {img:"images/3.png",  name:"فضي أنيق"},
-    {img:"images/2.png",  name:"ذهبي فاخر"},
-    {img:"images/1.png",  name:"أسود كلاسيكي"},
-    {img:"images/4.png",  name:"برتقالي زاهي"},
-    {img:"images/5.png",  name:"أزرق ملكي"},
-    {img:"images/7.png",  name:"أخضر عسكري"},
-    {img:"images/8.png",  name:"وردي ناعم"},
-    {img:"images/9.png",  name:"بنفسجي غامق"},
-    {img:"images/10.png", name:"أبيض نقي"},
-    {img:"images/11.png", name:"بني ترابي"},
-    {img:"images/12.png", name:"وردي مغبر"},
-    {img:"images/13.png", name:"تركوازي"},
-    {img:"images/14.png", name:"كحلي"},
-    {img:"images/15.png", name:"نعناعي"},
-    {img:"images/16.png", name:"أصفر مشرق"},
-    {img:"images/17.png", name:"مرجاني"},
-    {img:"images/18.png", name:"لافندر"},
+    {img:"images/6.png",  name:"Bold Red"},
+    {img:"images/3.png",  name:"Elegant Silver"},
+    {img:"images/2.png",  name:"Luxurious Gold"},
+    {img:"images/1.png",  name:"Classic Black"},
+    {img:"images/4.png",  name:"Vibrant Orange"},
+    {img:"images/5.png",  name:"Royal Blue"},
+    {img:"images/7.png",  name:"Military Green"},
+    {img:"images/8.png",  name:"Soft Pink"},
+    {img:"images/9.png",  name:"Dark Purple"},
+    {img:"images/10.png", name:"Pure White"},
+    {img:"images/11.png", name:"Earth Brown"},
+    {img:"images/12.png", name:"Powder Pink"},
+    {img:"images/13.png", name:"Turquoise"},
+    {img:"images/14.png", name:"Navy Blue"},
+    {img:"images/15.png", name:"Mint"},
+    {img:"images/16.png", name:"Bright Yellow"},
+    {img:"images/17.png", name:"Coral"},
+    {img:"images/18.png", name:"Lavender"},
   ];
   const grid = document.getElementById("grid");
   const bar  = document.getElementById("continueBar");
