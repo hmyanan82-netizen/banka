@@ -127,8 +127,9 @@
   .feat-track{display:flex;gap:14px;animation:marquee 20s linear infinite;width:max-content}
   .feat-track:hover{animation-play-state:paused}
   @keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-  .feat-icon{width:64px;height:64px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid var(--line);transition:.2s}
-  .feat-icon img{width:100%;height:100%;object-fit:cover}
+  .feat-icon{display:flex;flex-direction:column;align-items:center;gap:6px;flex-shrink:0;transition:.2s}
+  .feat-icon img{width:64px;height:64px;border-radius:50%;object-fit:cover}
+  .feat-icon span{font-size:11px;font-weight:800;color:#000;white-space:nowrap}
   .more-btn-wrap{text-align:center;margin-bottom:20px}
   .more-btn{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--line);border-radius:50px;padding:12px 28px;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;font-family:inherit;transition:.2s}
   .more-btn:hover{border-color:#c62828;color:#c62828}
@@ -228,34 +229,34 @@
 
     <div class="feat-marquee">
       <div class="feat-track" id="featTrack">
-        <div class="feat-icon"><img src="images/features/nfc.jpg" alt="Contactless Payment"></div>
-        <div class="feat-icon"><img src="images/features/password.jpg" alt="Banking Token"></div>
-        <div class="feat-icon"><img src="images/features/sms.jpg" alt="SMS"></div>
-        <div class="feat-icon"><img src="images/features/wifi.jpg" alt="Wi-Fi"></div>
-        <div class="feat-icon"><img src="images/features/multi-lang.jpg" alt="Multilingual"></div>
-        <div class="feat-icon"><img src="images/features/phone-compat.jpg" alt="All Phones"></div>
-        <div class="feat-icon"><img src="images/features/bank-link.jpg" alt="Bank Link"></div>
-        <div class="feat-icon"><img src="images/features/transfer.jpg" alt="Transfer"></div>
-        <div class="feat-icon"><img src="images/features/security-24h.jpg" alt="24/7 Security"></div>
-        <div class="feat-icon"><img src="images/features/battery.jpg" alt="7-Day Battery"></div>
-        <div class="feat-icon"><img src="images/features/gps.jpg" alt="GPS"></div>
-        <div class="feat-icon"><img src="images/features/waterproof.jpg" alt="Waterproof"></div>
-        <div class="feat-icon"><img src="images/features/notifications.jpg" alt="Notifications"></div>
-        <div class="feat-icon"><img src="images/features/sports.jpg" alt="Sport Modes"></div>
-        <div class="feat-icon"><img src="images/features/nfc.jpg" alt="Contactless Payment"></div>
-        <div class="feat-icon"><img src="images/features/password.jpg" alt="Banking Token"></div>
-        <div class="feat-icon"><img src="images/features/sms.jpg" alt="SMS"></div>
-        <div class="feat-icon"><img src="images/features/wifi.jpg" alt="Wi-Fi"></div>
-        <div class="feat-icon"><img src="images/features/multi-lang.jpg" alt="Multilingual"></div>
-        <div class="feat-icon"><img src="images/features/phone-compat.jpg" alt="All Phones"></div>
-        <div class="feat-icon"><img src="images/features/bank-link.jpg" alt="Bank Link"></div>
-        <div class="feat-icon"><img src="images/features/transfer.jpg" alt="Transfer"></div>
-        <div class="feat-icon"><img src="images/features/security-24h.jpg" alt="24/7 Security"></div>
-        <div class="feat-icon"><img src="images/features/battery.jpg" alt="7-Day Battery"></div>
-        <div class="feat-icon"><img src="images/features/gps.jpg" alt="GPS"></div>
-        <div class="feat-icon"><img src="images/features/waterproof.jpg" alt="Waterproof"></div>
-        <div class="feat-icon"><img src="images/features/notifications.jpg" alt="Notifications"></div>
-        <div class="feat-icon"><img src="images/features/sports.jpg" alt="Sport Modes"></div>
+        <div class="feat-icon"><img src="images/features/nfc.jpg" alt=""><span>Contactless Pay</span></div>
+        <div class="feat-icon"><img src="images/features/password.jpg" alt=""><span>Banking Token</span></div>
+        <div class="feat-icon"><img src="images/features/sms.jpg" alt=""><span>SMS</span></div>
+        <div class="feat-icon"><img src="images/features/wifi.jpg" alt=""><span>Wi-Fi</span></div>
+        <div class="feat-icon"><img src="images/features/multi-lang.jpg" alt=""><span>Multilingual</span></div>
+        <div class="feat-icon"><img src="images/features/phone-compat.jpg" alt=""><span>All Phones</span></div>
+        <div class="feat-icon"><img src="images/features/bank-link.jpg" alt=""><span>Bank Link</span></div>
+        <div class="feat-icon"><img src="images/features/transfer.jpg" alt=""><span>Transfer</span></div>
+        <div class="feat-icon"><img src="images/features/security-24h.jpg" alt=""><span>24/7 Security</span></div>
+        <div class="feat-icon"><img src="images/features/battery.jpg" alt=""><span>7-Day Battery</span></div>
+        <div class="feat-icon"><img src="images/features/gps.jpg" alt=""><span>GPS</span></div>
+        <div class="feat-icon"><img src="images/features/waterproof.jpg" alt=""><span>Waterproof</span></div>
+        <div class="feat-icon"><img src="images/features/notifications.jpg" alt=""><span>Notifications</span></div>
+        <div class="feat-icon"><img src="images/features/sports.jpg" alt=""><span>Sport Modes</span></div>
+        <div class="feat-icon"><img src="images/features/nfc.jpg" alt=""><span>Contactless Pay</span></div>
+        <div class="feat-icon"><img src="images/features/password.jpg" alt=""><span>Banking Token</span></div>
+        <div class="feat-icon"><img src="images/features/sms.jpg" alt=""><span>SMS</span></div>
+        <div class="feat-icon"><img src="images/features/wifi.jpg" alt=""><span>Wi-Fi</span></div>
+        <div class="feat-icon"><img src="images/features/multi-lang.jpg" alt=""><span>Multilingual</span></div>
+        <div class="feat-icon"><img src="images/features/phone-compat.jpg" alt=""><span>All Phones</span></div>
+        <div class="feat-icon"><img src="images/features/bank-link.jpg" alt=""><span>Bank Link</span></div>
+        <div class="feat-icon"><img src="images/features/transfer.jpg" alt=""><span>Transfer</span></div>
+        <div class="feat-icon"><img src="images/features/security-24h.jpg" alt=""><span>24/7 Security</span></div>
+        <div class="feat-icon"><img src="images/features/battery.jpg" alt=""><span>7-Day Battery</span></div>
+        <div class="feat-icon"><img src="images/features/gps.jpg" alt=""><span>GPS</span></div>
+        <div class="feat-icon"><img src="images/features/waterproof.jpg" alt=""><span>Waterproof</span></div>
+        <div class="feat-icon"><img src="images/features/notifications.jpg" alt=""><span>Notifications</span></div>
+        <div class="feat-icon"><img src="images/features/sports.jpg" alt=""><span>Sport Modes</span></div>
       </div>
     </div>
 
