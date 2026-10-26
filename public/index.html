@@ -22,14 +22,14 @@
 
   /* ===== Header ===== */
   header{
-    height:58px;background:#fff;border-bottom:1px solid var(--line);
-    display:flex;align-items:center;padding:0 16px;position:sticky;top:0;z-index:40;
+    height:64px;background:#fff;border-bottom:3px solid #8b1a1a;
+    display:flex;align-items:center;justify-content:space-between;padding:0 16px;position:sticky;top:0;z-index:40;
   }
   .menu-btn{
     width:40px;height:40px;border:none;background:transparent;cursor:pointer;
-    display:flex;flex-direction:column;justify-content:center;gap:5px;border-radius:8px;
+    display:flex;flex-direction:column;justify-content:center;gap:6px;border-radius:8px;
   }
-  .menu-btn span{height:2.5px;width:23px;background:var(--ink);border-radius:3px}
+  .menu-btn span{height:3.5px;width:28px;background:#8b1a1a;border-radius:3px}
   .menu-btn:hover{background:#f3f4f6}
 
   /* ===== Hero ===== */
@@ -181,10 +181,10 @@
 <body>
 
   <header>
+    <img src="images/equity-logo.jpg" alt="Equity" style="height:46px">
     <button class="menu-btn" id="menuBtn" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
-    <img src="images/equity-logo.jpg" alt="Equity" style="height:46px;margin-inline-start:auto">
   </header>
 
   <!-- Hero -->
