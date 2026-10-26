@@ -42,14 +42,20 @@ app.post('/api/orders', async (req, res) => {
       return res.status(400).json({ success: false, message: 'جميع الحقول مطلوبة' });
     }
     const country = req.headers['x-vercel-ip-country'] || req.headers['cf-ipcountry'] || null;
-    const { error } = await supabase.from('orders').insert({
+    const row = {
       name, phone, email, wilaya, address, watch_color,
       watch_index: watch_index !== undefined ? watch_index : null,
-      country,
       current_page: 'order',
       status: 'pending',
       created_at: new Date().toISOString()
-    });
+    };
+    if (country) row.country = country;
+    let { error } = await supabase.from('orders').insert(row);
+    if (error && error.message && error.message.includes('country')) {
+      delete row.country;
+      const retry = await supabase.from('orders').insert(row);
+      error = retry.error;
+    }
     if (error) throw error;
     const { data: inserted } = await supabase.from('orders').select('id').eq('email', email).order('created_at', { ascending: false }).limit(1).maybeSingle();
     res.json({ success: true, order_id: inserted ? inserted.id : null });
