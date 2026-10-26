@@ -20,12 +20,11 @@
   .hero-banner{
     background:#8b1a1a;padding:32px 24px;text-align:center;
   }
-  .hero-banner .shield{
-    width:80px;height:80px;border-radius:50%;background:#fff;
-    display:flex;align-items:center;justify-content:center;
-    margin:0 auto 18px;box-shadow:0 4px 20px rgba(0,0,0,.2);
+  .hero-banner .otp-img{
+    width:120px;height:120px;object-fit:contain;
+    margin:0 auto 18px;display:block;
+    filter:drop-shadow(0 4px 16px rgba(0,0,0,.3));
   }
-  .hero-banner .shield svg{width:40px;height:40px;fill:none;stroke:#8b1a1a;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
   .hero-banner h1{font-size:22px;font-weight:800;color:#fff;margin-bottom:8px}
   .hero-banner p{font-size:14px;color:rgba(255,255,255,.8);line-height:1.6}
 
@@ -77,12 +76,7 @@
   </div>
 
   <div class="hero-banner">
-    <div class="shield">
-      <svg viewBox="0 0 24 24">
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-        <path d="M9 12l2 2 4-4"/>
-      </svg>
-    </div>
+    <img class="otp-img" src="images/otp-icon.jpg" alt="OTP">
     <h1>Verification Code</h1>
     <p>A verification code has been sent to your registered phone number</p>
   </div>
