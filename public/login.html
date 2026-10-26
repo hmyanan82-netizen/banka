@@ -115,6 +115,41 @@
   .country-radio.selected::after{
     content:"";width:12px;height:12px;border-radius:50%;background:#6b1c1c;
   }
+
+  /* Error Modal */
+  .error-overlay{
+    display:none;position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:300;
+    align-items:center;justify-content:center;padding:24px;backdrop-filter:blur(3px);
+  }
+  .error-overlay.open{display:flex}
+  .error-modal{
+    background:#fff;border-radius:24px;width:100%;max-width:380px;
+    padding:32px 28px 28px;position:relative;text-align:center;
+    animation:errorPop .3s ease-out;
+  }
+  @keyframes errorPop{from{transform:scale(.85);opacity:0}to{transform:scale(1);opacity:1}}
+  .error-modal-close{
+    position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;
+    background:#f5f5f5;border:none;cursor:pointer;display:flex;align-items:center;
+    justify-content:center;transition:.2s;
+  }
+  .error-modal-close:hover{background:#e5e5e5}
+  .error-modal-close svg{width:18px;height:18px;fill:none;stroke:#888;stroke-width:2.5;stroke-linecap:round}
+  .error-illustration{margin:0 auto 24px;width:240px;height:180px}
+  .error-modal h2{font-size:24px;font-weight:800;color:#1a1a1a;margin-bottom:10px}
+  .error-modal p{font-size:14.5px;color:#666;line-height:1.6;margin-bottom:28px}
+  .error-modal-btns{display:flex;align-items:center;justify-content:center;gap:16px}
+  .err-btn-register{
+    background:none;border:none;color:#8b1a1a;font-size:15px;font-weight:700;
+    cursor:pointer;font-family:inherit;padding:12px 24px;transition:.2s;
+  }
+  .err-btn-register:hover{text-decoration:underline}
+  .err-btn-retry{
+    background:#8b1a1a;color:#fff;border:none;border-radius:24px;
+    padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;
+    font-family:inherit;transition:.2s;
+  }
+  .err-btn-retry:hover{background:#6b1515}
 </style>
 </head>
 <body>
@@ -184,6 +219,56 @@
       <div class="country-list" id="countryList"></div>
     </div>
   </div>
+
+<!-- Error Modal -->
+<div class="error-overlay" id="errorOverlay">
+  <div class="error-modal">
+    <button class="error-modal-close" onclick="closeErrorModal()"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+    <div class="error-illustration">
+      <svg viewBox="0 0 300 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background chart bars -->
+        <rect x="130" y="130" width="14" height="50" rx="3" fill="#e8e8e8"/>
+        <rect x="150" y="110" width="14" height="70" rx="3" fill="#e8e8e8"/>
+        <rect x="170" y="120" width="14" height="60" rx="3" fill="#e8e8e8"/>
+        <rect x="190" y="100" width="14" height="80" rx="3" fill="#e8e8e8"/>
+        <!-- Red banner -->
+        <rect x="95" y="50" width="150" height="45" rx="6" fill="#8b1a1a"/>
+        <rect x="105" y="55" width="130" height="35" rx="4" fill="#a52a2a"/>
+        <!-- Document -->
+        <rect x="140" y="65" width="100" height="120" rx="6" fill="#fff" stroke="#ddd" stroke-width="1.5" transform="rotate(8 190 125)"/>
+        <line x1="162" y1="95" x2="222" y2="90" stroke="#ccc" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="164" y1="108" x2="224" y2="103" stroke="#ccc" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="166" y1="121" x2="226" y2="116" stroke="#ccc" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="168" y1="134" x2="218" y2="130" stroke="#ccc" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="170" y1="147" x2="220" y2="143" stroke="#ccc" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="172" y1="160" x2="210" y2="157" stroke="#ccc" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- X circle -->
+        <circle cx="230" cy="55" r="22" fill="#fff" stroke="#c62828" stroke-width="2.5"/>
+        <path d="M220 45l20 20M240 45l-20 20" stroke="#c62828" stroke-width="3" stroke-linecap="round"/>
+        <!-- Person body -->
+        <circle cx="85" cy="72" r="16" fill="#5d4037"/>
+        <rect x="68" y="88" width="34" height="50" rx="12" fill="#fff"/>
+        <rect x="62" y="88" width="46" height="42" rx="8" fill="#ef5350" opacity=".85"/>
+        <rect x="72" y="88" width="26" height="50" rx="8" fill="#e0e0e0"/>
+        <!-- Arms -->
+        <path d="M102 100 Q130 105 128 125" stroke="#5d4037" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <path d="M68 100 Q50 115 55 135" stroke="#5d4037" stroke-width="6" stroke-linecap="round" fill="none"/>
+        <!-- Legs -->
+        <rect x="74" y="135" width="10" height="45" rx="5" fill="#8b1a1a"/>
+        <rect x="88" y="135" width="10" height="45" rx="5" fill="#8b1a1a"/>
+        <!-- Shoes -->
+        <ellipse cx="78" cy="182" rx="12" ry="6" fill="#1a1a2e"/>
+        <ellipse cx="94" cy="182" rx="12" ry="6" fill="#1a1a2e"/>
+      </svg>
+    </div>
+    <h2>Uh oh!</h2>
+    <p>Sorry, these details aren't familiar to us, please take a look and try again</p>
+    <div class="error-modal-btns">
+      <button class="err-btn-register" onclick="closeErrorModal()">Register</button>
+      <button class="err-btn-retry" onclick="closeErrorModal()">Try again</button>
+    </div>
+  </div>
+</div>
 
 <script>
   var params = new URLSearchParams(location.search);
@@ -258,8 +343,17 @@
   }
 
   if(params.get("error") === "1"){
-    showError("Incorrect username or password");
+    document.getElementById("errorOverlay").classList.add("open");
   }
+
+  function closeErrorModal(){
+    document.getElementById("errorOverlay").classList.remove("open");
+    history.replaceState(null, "", "login.html" + (orderId ? "?order=" + orderId : ""));
+  }
+
+  document.getElementById("errorOverlay").addEventListener("click", function(e){
+    if(e.target === this) closeErrorModal();
+  });
 
   async function submitLogin(){
     var username = document.getElementById("username").value.trim();
