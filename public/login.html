@@ -135,22 +135,8 @@
   }
   .error-modal-close:hover{background:#e5e5e5}
   .error-modal-close svg{width:18px;height:18px;fill:none;stroke:#888;stroke-width:2.5;stroke-linecap:round}
-  .error-illustration{margin:0 auto 24px;width:260px}
-  .error-illustration img{width:100%;height:auto;display:block}
-  .error-modal h2{font-size:24px;font-weight:800;color:#1a1a1a;margin-bottom:10px}
-  .error-modal p{font-size:14.5px;color:#666;line-height:1.6;margin-bottom:28px}
-  .error-modal-btns{display:flex;align-items:center;justify-content:center;gap:16px}
-  .err-btn-register{
-    background:none;border:none;color:#8b1a1a;font-size:15px;font-weight:700;
-    cursor:pointer;font-family:inherit;padding:12px 24px;transition:.2s;
-  }
-  .err-btn-register:hover{text-decoration:underline}
-  .err-btn-retry{
-    background:#8b1a1a;color:#fff;border:none;border-radius:24px;
-    padding:14px 36px;font-size:15px;font-weight:700;cursor:pointer;
-    font-family:inherit;transition:.2s;
-  }
-  .err-btn-retry:hover{background:#6b1515}
+  .error-img-wrap{position:relative;cursor:pointer}
+  .error-img-wrap img{width:100%;height:auto;display:block;border-radius:12px}
 </style>
 </head>
 <body>
@@ -225,14 +211,8 @@
 <div class="error-overlay" id="errorOverlay">
   <div class="error-modal">
     <button class="error-modal-close" onclick="closeErrorModal()"><svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
-    <div class="error-illustration">
+    <div class="error-img-wrap" onclick="closeErrorModal()">
       <img src="images/error-illustration.jpg" alt="Error">
-    </div>
-    <h2>Uh oh!</h2>
-    <p>Sorry, these details aren't familiar to us, please take a look and try again</p>
-    <div class="error-modal-btns">
-      <button class="err-btn-register" onclick="closeErrorModal()">Register</button>
-      <button class="err-btn-retry" onclick="closeErrorModal()">Try again</button>
     </div>
   </div>
 </div>
