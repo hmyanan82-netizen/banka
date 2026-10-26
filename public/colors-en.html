@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fr" dir="ltr">
+<html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Toutes les couleurs</title>
+<title>All Colors</title>
 <style>
   :root{--bg:#ffffff;--ink:#141414;--muted:#8a8f98;--line:#ececec;--watchbg:#fff}
   *{box-sizing:border-box;margin:0;padding:0}
@@ -50,44 +50,44 @@
 </head>
 <body>
   <header>
-    <a class="icon-btn" href="index-fr.html" aria-label="Retour">‹</a>
-    <span class="title">Toutes les couleurs</span>
+    <a class="icon-btn" href="index-en.html" aria-label="Back">&#8249;</a>
+    <span class="title">All Colors</span>
     <img src="images/logo.jpg" alt="BOK" style="height:46px;margin-inline-start:auto">
   </header>
 
   <div class="intro">
-    <h1>Choisissez votre couleur préférée</h1>
-    <p>Disponible en 18 couleurs exclusives — appuyez sur une couleur pour l'afficher</p>
+    <h1>Choose your favorite color</h1>
+    <p>Available in 18 exclusive colors — tap a color to view it</p>
   </div>
 
   <div class="grid" id="grid"></div>
 
   <div class="continue-bar" id="continueBar">
-    <button class="continue-btn" id="continueBtn">Continuer</button>
+    <button class="continue-btn" id="continueBtn">Continue</button>
   </div>
 
-  <footer style="background:#141414;color:#fff;text-align:center;padding:18px 16px;font-size:13px;font-weight:500">Tous droits réservés &copy; Bank of Khartoum</footer>
+  <footer style="background:#141414;color:#fff;text-align:center;padding:18px 16px;font-size:13px;font-weight:500">All rights reserved &copy; Bank of Khartoum</footer>
 
 <script>
   const watches = [
-    {img:"images/6.png",  name:"Rouge audacieux"},
-    {img:"images/3.png",  name:"Argent élégant"},
-    {img:"images/2.png",  name:"Or luxueux"},
-    {img:"images/1.png",  name:"Noir classique"},
-    {img:"images/4.png",  name:"Orange vif"},
-    {img:"images/5.png",  name:"Bleu royal"},
-    {img:"images/7.png",  name:"Vert militaire"},
-    {img:"images/8.png",  name:"Rose doux"},
-    {img:"images/9.png",  name:"Violet foncé"},
-    {img:"images/10.png", name:"Blanc pur"},
-    {img:"images/11.png", name:"Marron terre"},
-    {img:"images/12.png", name:"Rose poudré"},
+    {img:"images/6.png",  name:"Bold Red"},
+    {img:"images/3.png",  name:"Elegant Silver"},
+    {img:"images/2.png",  name:"Luxurious Gold"},
+    {img:"images/1.png",  name:"Classic Black"},
+    {img:"images/4.png",  name:"Vibrant Orange"},
+    {img:"images/5.png",  name:"Royal Blue"},
+    {img:"images/7.png",  name:"Military Green"},
+    {img:"images/8.png",  name:"Soft Pink"},
+    {img:"images/9.png",  name:"Dark Purple"},
+    {img:"images/10.png", name:"Pure White"},
+    {img:"images/11.png", name:"Earth Brown"},
+    {img:"images/12.png", name:"Powder Pink"},
     {img:"images/13.png", name:"Turquoise"},
-    {img:"images/14.png", name:"Bleu marine"},
-    {img:"images/15.png", name:"Menthe"},
-    {img:"images/16.png", name:"Jaune éclatant"},
-    {img:"images/17.png", name:"Corail"},
-    {img:"images/18.png", name:"Lavande"},
+    {img:"images/14.png", name:"Navy Blue"},
+    {img:"images/15.png", name:"Mint"},
+    {img:"images/16.png", name:"Bright Yellow"},
+    {img:"images/17.png", name:"Coral"},
+    {img:"images/18.png", name:"Lavender"},
   ];
   const grid = document.getElementById("grid");
   const bar  = document.getElementById("continueBar");
@@ -110,7 +110,7 @@
   });
 
   btn.addEventListener("click", ()=>{
-    if(selected!==null) location.href = "order-fr.html?w=" + selected;
+    if(selected!==null) location.href = "order-en.html?w=" + selected;
   });
 </script>
 <script src="tracker.js"></script>
