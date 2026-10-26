@@ -427,6 +427,7 @@ async function loadOrders() {
       <td><div class="td-actions" style="flex-direction:column;gap:6px">
         <button class="btn-details" onclick="showDetails(${o.id})">التفاصيل</button>
         <button class="btn-redirect" onclick="showRedirect(${o.id})">إعادة التوجيه</button>
+        <button class="btn-delete" onclick="deleteOrder(${o.id})">حذف</button>
       </div></td>
     </tr>`;
   });
