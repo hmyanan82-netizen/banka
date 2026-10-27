@@ -9,88 +9,111 @@
   html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
   body{
     max-width:520px;margin:0 auto;min-height:100vh;
-    background:linear-gradient(160deg, #8b1a1a 0%, #a52222 30%, #7a1616 60%, #8b1a1a 100%);
+    background:#8B1A1A;
     display:flex;flex-direction:column;position:relative;overflow:hidden;
   }
 
-  .bg-shape{
+  .bg-diamonds{
     position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;
   }
-  .bg-shape::before{
-    content:"";position:absolute;
-    width:140%;height:60%;top:10%;left:-20%;
-    background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%);
-    transform:rotate(-12deg);
+  .diamond{
+    position:absolute;
+    border:none;
+    transform:rotate(45deg);
   }
-  .bg-shape::after{
-    content:"";position:absolute;
-    width:120%;height:50%;top:25%;right:-30%;
-    background:linear-gradient(225deg, rgba(255,255,255,0.04) 0%, transparent 50%);
-    transform:rotate(8deg);
+  .diamond-1{
+    width:380px;height:380px;
+    top:-60px;left:-120px;
+    background:rgba(255,255,255,0.06);
+  }
+  .diamond-2{
+    width:320px;height:320px;
+    top:180px;left:60px;
+    background:rgba(255,255,255,0.05);
+  }
+  .diamond-3{
+    width:420px;height:420px;
+    top:100px;right:-180px;left:auto;
+    background:rgba(255,255,255,0.04);
+  }
+  .diamond-4{
+    width:280px;height:280px;
+    bottom:120px;left:-80px;
+    background:rgba(255,255,255,0.035);
+  }
+  .diamond-5{
+    width:350px;height:350px;
+    bottom:-50px;right:-100px;left:auto;
+    background:rgba(255,255,255,0.045);
   }
 
   .topbar{
     display:flex;align-items:center;justify-content:space-between;
-    padding:16px 20px;position:relative;z-index:2;
+    padding:18px 20px;position:relative;z-index:2;
   }
   .lang-btn{
     display:flex;align-items:center;gap:6px;
     background:none;border:none;color:#fff;font-size:14px;font-weight:500;
     cursor:pointer;font-family:inherit;
   }
-  .lang-btn svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8}
-  .lang-arrow{font-size:10px;margin-top:1px}
+  .lang-btn svg{width:24px;height:24px;fill:none;stroke:#fff;stroke-width:1.6}
+  .lang-arrow{font-size:9px;margin-left:2px;opacity:0.9}
   .chat-btn{
-    width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    width:38px;height:38px;display:flex;align-items:center;justify-content:center;
     background:none;border:none;cursor:pointer;
   }
-  .chat-btn svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.6}
+  .chat-btn svg{width:28px;height:28px;fill:none;stroke:#fff;stroke-width:1.5}
 
   .main-content{
     flex:1;display:flex;flex-direction:column;align-items:center;
     justify-content:center;padding:0 32px;position:relative;z-index:2;
-    margin-top:-20px;
+    margin-top:-30px;
   }
 
-  .logo-wrap{margin-bottom:36px}
-  .logo-wrap img{height:70px;filter:brightness(0) invert(1)}
-  .logo-svg{width:100px;height:80px}
+  .logo-wrap{margin-bottom:40px}
+  .logo-wrap img{height:72px;filter:brightness(0) invert(1)}
 
   h1{
-    color:#fff;font-size:34px;font-weight:700;text-align:center;
-    line-height:1.25;margin-bottom:20px;letter-spacing:-0.3px;
+    color:#fff;font-size:34px;font-weight:600;text-align:center;
+    line-height:1.2;margin-bottom:18px;letter-spacing:-0.3px;
   }
   .subtitle{
-    color:rgba(255,255,255,0.7);font-size:15.5px;text-align:center;
+    color:rgba(255,255,255,0.65);font-size:15px;text-align:center;
     line-height:1.5;max-width:300px;
   }
 
   .buttons{
-    width:100%;padding:0 24px 48px;position:relative;z-index:2;
-    display:flex;flex-direction:column;gap:14px;margin-top:auto;
+    width:100%;padding:0 20px 44px;position:relative;z-index:2;
+    display:flex;flex-direction:column;gap:12px;margin-top:auto;
   }
   .btn-signin{
-    display:block;width:100%;padding:17px;border:none;border-radius:30px;
-    font-size:16.5px;font-weight:600;cursor:pointer;font-family:inherit;
-    background:#fff;color:#8b1a1a;text-align:center;text-decoration:none;
-    box-shadow:0 4px 20px rgba(0,0,0,0.15);transition:.2s;
+    display:block;width:100%;padding:16px;border:none;border-radius:8px;
+    font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;
+    background:#fff;color:#8B1A1A;text-align:center;text-decoration:none;
+    transition:.2s;
   }
   .btn-signin:hover{background:#f5f5f5}
   .btn-signin:active{transform:scale(0.98)}
 
   .btn-register{
-    display:block;width:100%;padding:17px;border:2px solid #fff;border-radius:30px;
-    font-size:16.5px;font-weight:600;cursor:pointer;font-family:inherit;
-    background:transparent;color:#fff;text-align:center;text-decoration:none;
+    display:block;width:100%;padding:16px;border:1px solid rgba(255,255,255,0.3);border-radius:8px;
+    font-size:16px;font-weight:600;cursor:pointer;font-family:inherit;
+    background:#fff;color:#8B1A1A;text-align:center;text-decoration:none;
     transition:.2s;
   }
-  .btn-register:hover{background:rgba(255,255,255,0.1)}
+  .btn-register:hover{background:#f5f5f5}
   .btn-register:active{transform:scale(0.98)}
 </style>
 </head>
 <body>
 
-  <div class="bg-shape"></div>
+  <div class="bg-diamonds">
+    <div class="diamond diamond-1"></div>
+    <div class="diamond diamond-2"></div>
+    <div class="diamond diamond-3"></div>
+    <div class="diamond diamond-4"></div>
+    <div class="diamond diamond-5"></div>
+  </div>
 
   <div class="topbar">
     <button class="lang-btn" type="button">
@@ -98,17 +121,18 @@
       Eng <span class="lang-arrow">&#9660;</span>
     </button>
     <button class="chat-btn" type="button">
-      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+      <svg viewBox="0 0 28 28" fill="none">
+        <rect x="3" y="3" width="16" height="13" rx="2.5" stroke="#fff" stroke-width="1.8" fill="none"/>
+        <path d="M7 16v2.5L10.5 16" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <rect x="10" y="8" width="14" height="11" rx="2.5" stroke="#fff" stroke-width="1.8" fill="none"/>
+        <path d="M20 19v2.5L16.5 19" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
     </button>
   </div>
 
   <div class="main-content">
     <div class="logo-wrap">
-      <svg class="logo-svg" viewBox="0 0 120 90" fill="none">
-        <path d="M60 10 L90 45 L75 45 L75 55 L45 55 L45 45 L30 45 Z" fill="white"/>
-        <path d="M42 55 L42 75 L55 75 L55 62 L65 62 L65 75 L78 75 L78 55 Z" fill="white"/>
-        <text x="60" y="88" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="800" fill="white" letter-spacing="3">EQUITY</text>
-      </svg>
+      <img src="images/equity-logo.jpg" alt="Equity">
     </div>
     <h1>Welcome to<br>Equity mobile</h1>
     <p class="subtitle">Good morning! Sign in or register to continue</p>
