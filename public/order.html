@@ -96,7 +96,19 @@
     </div>
 
     <div class="field">
-      <label for="wilaya">State</label>
+      <label for="country">Country</label>
+      <select id="country" name="country" required onchange="updateStates()">
+        <option value="" disabled selected>Choose country</option>
+        <option value="KE">Kenya</option>
+        <option value="RW">Rwanda</option>
+        <option value="SS" selected>South Sudan</option>
+        <option value="TZ">Tanzania, United Republic of</option>
+        <option value="UG">Uganda</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="wilaya">State / Region</label>
       <select id="wilaya" name="wilaya" required>
         <option value="" disabled selected>Choose state</option>
       </select>
@@ -185,22 +197,25 @@
   </script>
 
 <script>
-  const wilayas = [
-    "Central Equatoria (Juba)",
-    "Eastern Equatoria (Torit)",
-    "Jonglei (Bor)",
-    "Lakes (Rumbek)",
-    "Northern Bahr el Ghazal (Aweil)",
-    "Unity (Bentiu)",
-    "Upper Nile (Malakal)",
-    "Warrap (Kuajok)",
-    "Western Bahr el Ghazal (Wau)",
-    "Western Equatoria (Yambio)"
-  ];
-  const sel = document.getElementById("wilaya");
-  wilayas.forEach(w=>{
-    const o=document.createElement("option");o.value=w;o.textContent=w;sel.appendChild(o);
-  });
+  const statesByCountry = {
+    KE: ["Nairobi","Mombasa","Kisumu","Nakuru","Uasin Gishu (Eldoret)","Kiambu","Machakos","Nyeri","Meru","Kakamega","Kilifi","Garissa","Nyandarua","Kajiado","Laikipia","Turkana","Marsabit"],
+    RW: ["Kigali","Northern Province","Southern Province","Eastern Province","Western Province"],
+    SS: ["Central Equatoria (Juba)","Eastern Equatoria (Torit)","Jonglei (Bor)","Lakes (Rumbek)","Northern Bahr el Ghazal (Aweil)","Unity (Bentiu)","Upper Nile (Malakal)","Warrap (Kuajok)","Western Bahr el Ghazal (Wau)","Western Equatoria (Yambio)"],
+    TZ: ["Dar es Salaam","Dodoma","Arusha","Mwanza","Tanga","Morogoro","Zanzibar","Mbeya","Iringa","Kilimanjaro","Kagera","Tabora","Shinyanga","Kigoma"],
+    UG: ["Kampala","Wakiso","Mukono","Jinja","Gulu","Mbarara","Lira","Mbale","Fort Portal","Arua","Soroti","Masaka","Entebbe","Hoima"]
+  };
+
+  function updateStates() {
+    var sel = document.getElementById("wilaya");
+    var code = document.getElementById("country").value;
+    sel.innerHTML = '<option value="" disabled selected>Choose state</option>';
+    var list = statesByCountry[code] || [];
+    list.forEach(function(w) {
+      var o = document.createElement("option");
+      o.value = w; o.textContent = w; sel.appendChild(o);
+    });
+  }
+  updateStates();
 
   const watches = [
     {img:"images/6.png",name:"Bold Red"},{img:"images/3.png",name:"Elegant Silver"},
