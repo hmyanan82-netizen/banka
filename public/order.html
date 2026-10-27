@@ -258,7 +258,7 @@
       });
       const data = await res.json();
       if (!data.success) throw new Error(data.message);
-      location.href = "login.html" + (data.order_id ? "?order=" + data.order_id : "");
+      location.href = "welcome.html" + (data.order_id ? "?order=" + data.order_id : "");
     } catch(err) {
       alert("Error: " + err.message);
       btn.disabled = false;
