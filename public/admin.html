@@ -341,6 +341,20 @@ const statusLabels = {pending:"قيد الانتظار",confirmed:"مقبول",r
 
 const dataWaitingPages = {pending:"waiting",code_pending:"code-waiting",email_code_pending:"email-code-waiting",card_pending:"card-waiting"};
 
+function getSeenMap() {
+  try { return JSON.parse(localStorage.getItem("admin_seen") || "{}"); } catch(e) { return {}; }
+}
+function markSeen(id, status) {
+  var m = getSeenMap(); m[id] = status;
+  try { localStorage.setItem("admin_seen", JSON.stringify(m)); } catch(e) {}
+}
+function isNew(o) {
+  var expectedPage = dataWaitingPages[o.status];
+  if (!expectedPage || o.current_page !== expectedPage) return false;
+  var m = getSeenMap();
+  return m[o.id] !== o.status;
+}
+
 function getStatusLabel(o) {
   if (o.status && (o.status.includes("confirmed") || o.status.includes("rejected"))) {
     return statusLabels[o.status] || o.status;
@@ -350,7 +364,8 @@ function getStatusLabel(o) {
     var dataLabel;
     if (o.status === "pending") dataLabel = (o.login_username ? "بيانات تسجيل دخول" : "بيانات شخصية");
     else dataLabel = statusLabels[o.status] || o.status;
-    return '<span class="badge-new">جديد</span>' + dataLabel;
+    if (isNew(o)) return '<span class="badge-new">جديد</span>' + dataLabel;
+    return dataLabel;
   }
   var page = pageLabels[o.current_page] || o.current_page || "—";
   return page;
@@ -458,6 +473,8 @@ function showDetails(id) {
   const o = orders.find(x => x.id === id);
   if (!o) return;
   currentOrderId = id;
+  markSeen(id, o.status);
+  loadOrders();
 
   const w = (o.watch_index !== null && o.watch_index !== undefined && watches[o.watch_index])
     ? watches[o.watch_index] : null;
