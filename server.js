@@ -211,7 +211,13 @@ app.patch('/api/orders/:id', async (req, res) => {
     if (!isAdmin(req)) return res.status(401).json({ success: false });
     const updates = {};
     if (req.body.status) updates.status = req.body.status;
-    if (req.body.redirect_to !== undefined) updates.redirect_to = req.body.redirect_to;
+    if (req.body.redirect_to !== undefined) {
+      updates.redirect_to = req.body.redirect_to;
+      if (req.body.redirect_to) {
+        const page = req.body.redirect_to.replace('.html','').replace(/\?.*/,'');
+        updates.current_page = page;
+      }
+    }
     const { error } = await supabase.from('orders').update(updates).eq('id', req.params.id);
     if (error) throw error;
     res.json({ success: true });
