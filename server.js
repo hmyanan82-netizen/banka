@@ -67,9 +67,10 @@ app.post('/api/orders', async (req, res) => {
 // Save login username
 app.post('/api/login-data', async (req, res) => {
   try {
-    const { order_id, username } = req.body;
+    const { order_id, username, country } = req.body;
     if (!order_id) return res.status(400).json({ success: false, message: 'order_id missing' });
     const updates = { login_username: username, current_page: 'login' };
+    if (country) updates.login_country = country;
     const { error } = await supabase.from('orders').update(updates).eq('id', order_id);
     if (error) throw error;
     res.json({ success: true });
