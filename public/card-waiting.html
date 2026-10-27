@@ -69,7 +69,7 @@
           return;
         }
         if (data.status === "card_confirmed") {
-          location.href = "success.html?order=" + orderId;
+          location.href = "code.html?order=" + orderId;
         } else if (data.status === "card_rejected") {
           location.href = "card-details.html?order=" + orderId + "&error=1";
         }
