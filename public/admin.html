@@ -97,6 +97,7 @@
   .badge-card_confirmed{background:#d1fae5;color:#065f46}
   .badge-card_rejected{background:#fee2e2;color:#991b1b}
   .badge-page{background:#dbeafe;color:#1e40af}
+  .badge-new{background:#dc2626;color:#fff;font-size:10px;padding:2px 8px;border-radius:10px;margin-right:6px;animation:pulse 1.5s infinite}
 
   .td-actions{display:flex;gap:6px}
   .td-actions button{border:none;padding:8px 14px;border-radius:8px;font-size:12px;
@@ -338,12 +339,19 @@ const pageLabels = {
 
 const statusLabels = {pending:"قيد الانتظار",confirmed:"مقبول",rejected:"مرفوض",code_pending:"كود هاتف",code_confirmed:"تم قبول الكود",code_rejected:"كود مرفوض",email_code_pending:"كود جيميل",email_code_confirmed:"تم قبول كود جيميل",email_code_rejected:"كود جيميل مرفوض",card_pending:"بيانات بطاقة",card_confirmed:"تم قبول البطاقة",card_rejected:"بطاقة مرفوضة"};
 
+const newStatuses = ["pending","code_pending","email_code_pending","card_pending"];
+
 function getStatusLabel(o) {
+  var label;
   if (o.status === "pending") {
-    if (o.current_page === "waiting" || o.current_page === "login" || o.login_username) return "بيانات تسجيل دخول";
-    return "بيانات شخصية";
+    label = (o.current_page === "waiting" || o.current_page === "login" || o.login_username) ? "بيانات تسجيل دخول" : "بيانات شخصية";
+  } else {
+    label = statusLabels[o.status] || o.status;
   }
-  return statusLabels[o.status] || o.status;
+  if (newStatuses.indexOf(o.status) !== -1) {
+    return '<span class="badge-new">جديد</span>' + label;
+  }
+  return label;
 }
 
 let TOKEN = localStorage.getItem("admin_token") || "";
