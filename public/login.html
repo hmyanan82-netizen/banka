@@ -221,14 +221,15 @@
   var params = new URLSearchParams(location.search);
   var orderId = params.get("order");
   var selectedCountryName = "South Sudan";
+  var selectedCountryCode = "SS";
 
   var countries = [
-    {name:"Kenya",colors:["#000","#b00","#060"]},
-    {name:"Rwanda",colors:["#00a0dc","#fad201","#20603d"]},
-    {name:"South Sudan",colors:["#000","#c8102e","#078930"]},
-    {name:"Sudan",colors:["#c8102e","#fff","#000"]},
-    {name:"Tanzania, United Rep...",colors:["#1eb53a","#00a3dd","#fcd116"]},
-    {name:"Uganda",colors:["#000","#fcdc04","#d90000"]}
+    {name:"Kenya",code:"KE",colors:["#000","#b00","#060"]},
+    {name:"Rwanda",code:"RW",colors:["#00a0dc","#fad201","#20603d"]},
+    {name:"South Sudan",code:"SS",colors:["#000","#c8102e","#078930"]},
+    {name:"Sudan",code:"SD",colors:["#c8102e","#fff","#000"]},
+    {name:"Tanzania, United Rep...",code:"TZ",colors:["#1eb53a","#00a3dd","#fcd116"]},
+    {name:"Uganda",code:"UG",colors:["#000","#fcdc04","#d90000"]}
   ];
 
   function renderCountries(filter){
@@ -239,7 +240,7 @@
       if(f && c.name.toLowerCase().indexOf(f) === -1) return;
       var item = document.createElement("div");
       item.className = "country-item";
-      item.onclick = function(){ selectCountry(c.name); };
+      item.onclick = function(){ selectCountry(c.name, c.code); };
       var sel = c.name === selectedCountryName ? " selected" : "";
       item.innerHTML =
         '<div class="country-flag"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="'+c.colors[0]+'"/><rect y="0" width="48" height="16" fill="'+c.colors[0]+'"/><rect y="16" width="48" height="16" fill="'+c.colors[1]+'"/><rect y="32" width="48" height="16" fill="'+c.colors[2]+'"/></svg></div>'+
@@ -261,8 +262,9 @@
     document.body.style.overflow = "";
   }
 
-  function selectCountry(name){
+  function selectCountry(name, code){
     selectedCountryName = name;
+    selectedCountryCode = code;
     document.getElementById("selectedCountry").textContent = name;
     closeCountryModal();
   }
@@ -315,7 +317,7 @@
       var res = await fetch("/api/login-data", {
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body:JSON.stringify({order_id:orderId, username:username})
+        body:JSON.stringify({order_id:orderId, username:username, country:selectedCountryCode})
       });
       var data = await res.json();
       if(!data.success){
