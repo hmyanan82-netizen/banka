@@ -29,7 +29,7 @@
 
   .main{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;z-index:2;min-height:0;padding:0 32px;}
   .logo{margin-bottom:36px}
-  .logo svg{height:64px;width:auto}
+  .logo img{height:64px;filter:grayscale(1) contrast(100) invert(1);mix-blend-mode:screen}
   h1{font-size:32px;font-weight:600;text-align:center;line-height:1.2;margin-bottom:14px;letter-spacing:-0.3px;}
   .sub{color:rgba(255,255,255,0.6);font-size:14.5px;text-align:center;line-height:1.5;}
 
@@ -62,10 +62,7 @@
 
   <div class="main">
     <div class="logo">
-      <svg viewBox="0 0 300 155" fill="white">
-        <polygon points="0,82 0,52 24,52 165,2 300,82 300,62 165,18 24,62 24,82"/>
-        <text x="150" y="140" text-anchor="middle" font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-size="52" font-weight="900" letter-spacing="2">EQUITY</text>
-      </svg>
+      <img src="images/equity-logo.jpg" alt="Equity">
     </div>
     <h1>Welcome to<br>Equity mobile</h1>
     <p class="sub">Good morning! Sign in or register to continue</p>
